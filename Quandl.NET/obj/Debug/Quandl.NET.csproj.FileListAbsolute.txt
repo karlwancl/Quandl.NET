@@ -1,0 +1,5 @@
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.csprojResolveAssemblyReference.cache
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\bin\Debug\Quandl.NET.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\bin\Debug\Quandl.NET.pdb
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.pdb
