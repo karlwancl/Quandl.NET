@@ -8,14 +8,11 @@ namespace Quandl.NET.Model.Response
 {
     public class GetDatasetResponse
     {
-        public GetDatasetResponse(List<DatasetMetadata> datasets, Meta meta)
+        public GetDatasetResponse(DatasetData dataset_data)
         {
-            Datasets = datasets;
-            Meta = meta;
+            DatasetData = dataset_data;
         }
 
-        public List<DatasetMetadata> Datasets { get; private set; }
-
-        public Meta Meta { get; private set; }
+        public DatasetData DatasetData { get; private set; }
     }
 }

@@ -91,9 +91,9 @@ namespace Quandl.NET.Refit
             Client = client;
         }
 
-        public virtual Task<HttpContent> GetAsync(string datatable_code,ReturnFormat format,Dictionary<string, string> rowFilter,string columnFilter,string api_key)
+        public virtual Task<HttpContent> GetAsync(string datatable_code_1,string datatable_code_2,ReturnFormat format,Dictionary<string, string> rowFilter,string columnFilter,bool? full_result,string api_key)
         {
-            var arguments = new object[] { datatable_code,format,rowFilter,columnFilter,api_key };
+            var arguments = new object[] { datatable_code_1,datatable_code_2,format,rowFilter,columnFilter,full_result,api_key };
             return (Task<HttpContent>) methodImpls["GetAsync"](Client, arguments);
         }
 

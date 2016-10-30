@@ -76,7 +76,7 @@ namespace Quandl.NET
         /// <a href="https://www.quandl.com/docs/api?json#get-database-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
-        /// <returns>Metadata response</returns>
+        /// <returns>Get database metadata response</returns>
         public async Task<GetDatabaseMetadataResponse> GetMetadataAsync(string databaseCode)
         {
             var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json, _apiKey);
@@ -86,7 +86,7 @@ namespace Quandl.NET
 
         /// <summary>
         /// Use this call to get metadata for a specified database.
-        /// <a href="https://www.quandl.com/docs/api?json#get-database-metadata">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-database-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <returns>Stream of csv file (.csv)</returns>
@@ -103,17 +103,17 @@ namespace Quandl.NET
         /// <param name="query">Search keywords. Separate multiple keywords with a + character.</param>
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
-        /// <returns>List of databases response</returns>
-        public async Task<GetListOfDatabasesResponse> GetListAsync(string query = null, int? perPage = null, int? page = null)
+        /// <returns>Get database list response</returns>
+        public async Task<GetDatabaseListResponse> GetListAsync(string query = null, int? perPage = null, int? page = null)
         {
             var content = await _api.GetListAsync(ReturnFormat.Json, query, perPage, page, _apiKey);
             var json = await content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<GetListOfDatabasesResponse>(json);
+            return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
         }
 
         /// <summary>
         /// You can search for specific databases on Quandl using this API route. The API will return all databases related to your query.
-        /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#search-for-databases">Reference</a>
         /// </summary>
         /// <param name="query">Search keywords. Separate multiple keywords with a + character.</param>
         /// <param name="perPage">Number of search results per page</param>
@@ -126,9 +126,8 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// (CSV method)
         /// For databases that support the datasets API route, this call gets a list of available datasets within the database, in the form of a zipped CSV file.
-        /// <a href="https://www.quandl.com/docs/api?json#get-list-of-database-contents">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-list-of-database-contents">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <returns>Stream of zipped csv file (.zip)</returns>
@@ -152,33 +151,37 @@ namespace Quandl.NET
                 });
         }
 
+        // TODO: Test if using dictionary for query map works
         /// <summary>
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="datatableCode">short code for datatable</param>
+        /// <param name="datatableCode1">first part of short code for datatable</param>
+        /// <param name="datatableCode2">second part of short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <returns>Get datatable response</returns>
-        public async Task<GetDatatableResponse> GetAsync(string datatableCode, Dictionary<string, string> rowFilter = null, string columnFilter = null)
+        public async Task<GetDatatableResponse> GetAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null)
         {
-            var content =  await _api.GetAsync(datatableCode, ReturnFormat.Json, rowFilter, columnFilter, _apiKey);
+            var content =  await _api.GetAsync(datatableCode1, datatableCode2, ReturnFormat.Json, rowFilter, columnFilter, null, _apiKey);
             var json = await content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<GetDatatableResponse>(json);
         }
 
+        // TODO: Test if using dictionary for query map works
         /// <summary>
-        /// (CSV method)
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
-        /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="datatableCode">short code for datatable</param>
+        /// <param name="datatableCode1">first part of short code for datatable</param>
+        /// <param name="datatableCode2">second part of short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
-        /// <returns>Zipped csv file stream</returns>
-        public async Task<Stream> GetStreamAsync(string datatableCode, Dictionary<string, string> rowFilter = null, string columnFilter = null)
+        /// <param name="fullResult">Flag to display full result</param>
+        /// <returns>Stream of csv file (.csv)</returns>
+        public async Task<Stream> GetStreamAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null, bool? fullResult = null)
         {
-            var content = await _api.GetAsync(datatableCode, ReturnFormat.Csv, rowFilter, columnFilter, _apiKey);
+            var content = await _api.GetAsync(datatableCode1, datatableCode2, ReturnFormat.Csv, rowFilter, columnFilter, fullResult, _apiKey);
             return await content.ReadAsStreamAsync();
         }
     }
@@ -202,22 +205,21 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
-        /// <returns>Get data response</returns>
-        public async Task<GetDataResponse> GetAsync(string databaseCode, string datasetCode)
+        /// <returns>Get dataset response</returns>
+        public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode)
         {
             var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey);
             var json = await content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<GetDataResponse>(json);
+            return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
         }
 
         /// <summary>
-        /// (CSV method)
         /// This call returns data from a specified dataset.
-        /// <a href="https://www.quandl.com/docs/api?json#get-data">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-data">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
-        /// <returns>Zipped csv file stream</returns>
+        /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetStreamAsync(string databaseCode, string datasetCode)
         {
             var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey);
@@ -239,13 +241,12 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// (CSV method)
         /// This call returns metadata for a specified dataset.
-        /// <a href="https://www.quandl.com/docs/api?json#get-metadata">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
-        /// <returns>Zipped csv file stream</returns>
+        /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetMetadataStreamAsync(string databaseCode, string datasetCode)
         {
             var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey);
@@ -275,31 +276,51 @@ namespace Quandl.NET
         }
 
         /// <summary>
+        /// This call returns data and metadata for a given dataset. 
+        /// <a href="https://www.quandl.com/docs/api?json#get-data-and-metadata">Reference</a>
+        /// </summary>
+        /// <param name="databaseCode">short code for database</param>
+        /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
+        /// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
+        /// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
+        /// <param name="endDate">Retrieve data rows up to and including the specified end date.</param>
+        /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
+        /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
+        /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
+        /// <returns>Stream of csv file (.csv)</returns>
+        public async Task<Stream> GetDataAndMetadataStreamAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
+        {
+            var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey);
+            return await content.ReadAsStreamAsync();
+        }
+
+        /// <summary>
         /// You can search for individual datasets on Quandl using this API route. 
-        /// <a href="https://www.quandl.com/docs/api?json#customize-your-dataset">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?json#dataset-search">Reference</a>
         /// </summary>
         /// <param name="query">Your search query. Separate multiple items with “+”.</param>
         /// <param name="databaseCode">Restrict search results to a specific database.</param>
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
         /// <returns>Get dataset response</returns>
-        public async Task<GetDatasetResponse> GetListAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<GetDatasetListResponse> GetListAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
         {
             var content = await _api.GetListAsync(ReturnFormat.Json, query, databaseCode, perPage, page, _apiKey);
             var json = await content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
+            return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
         }
 
         /// <summary>
-        /// (CSV method)
         /// You can search for individual datasets on Quandl using this API route. 
-        /// <a href="https://www.quandl.com/docs/api?json#customize-your-dataset">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#dataset-search">Reference</a>
         /// </summary>
         /// <param name="query">Your search query. Separate multiple items with “+”.</param>
         /// <param name="databaseCode">Restrict search results to a specific database.</param>
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
-        /// <returns>Zipped csv file stream</returns>
+        /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetListStreamAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
         {
             var content = await _api.GetListAsync(ReturnFormat.Csv, query, databaseCode, perPage, page, _apiKey);

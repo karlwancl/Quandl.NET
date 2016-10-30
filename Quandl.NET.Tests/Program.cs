@@ -16,28 +16,18 @@ namespace Quandl.NET.Tests
         {
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
-            //var result = client.Datatable.GetDatatableAsync("INQ/EE").Result;
 
-            //var result = client.Database.GetEntireDatabaseInCsvAsync("WIKI", Model.Enum.DownloadType.Partial).Result;
-            //using (result)
-            //using (var fs = File.Create("db.zip"))
-            //{
-            //    //Console.WriteLine($"Start downloading... ({result.} bytes)");
-            //    result.CopyTo(fs);
-            //}
-
+            //var result = client.Datatable.GetStreamAsync("INQ", "EE").Result;
+            //var result = client.Dataset.GetListStreamAsync("crude+oil", "ODA", 1, 1).Result;
             //var result = client.Database.GetDatasetListStreamAsync("WIKI").Result;
-            //using (result)
-            //using (var fs = File.Create("result.zip"))
-            //{
-            //    result.CopyTo(fs);
-            //}
-            var result = client.Database.GetListAsync().Result;
-            Console.WriteLine("Process completed!");
-            //var result = client.Database.GetDatabaseMetadataAsync("WIKI").Result;
-            //var databases = client.Database.GetListOfDatabasesAsync().Result;
-            //databases?.Databases?.Take(10).ForEach(md => Console.WriteLine($"{md.DatabaseCode}: {md.Description}"));
+            var result = client.Dataset.GetDataAndMetadataStreamAsync("WIKI", "AMAT", 20).Result;
+            using (result)
+            using (var fs = File.Create("datatable_wiki_amat.zip"))
+            {
+                result.CopyTo(fs);
+            }
 
+            Console.WriteLine("Process completed!");
             Console.ReadLine();
         }
     }
