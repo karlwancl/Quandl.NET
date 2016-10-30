@@ -16,26 +16,29 @@ namespace Quandl.NET.Tests
         {
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
-            var result = client.Database.GetEntireDatabaseAsync("WIKI", Model.Enum.DownloadType.Complete).Result;
-            using (result)
-            using (var fs = File.Create("db.zip"))
-            {
-                //Console.WriteLine($"Start downloading... ({result.} bytes)");
-                result.CopyTo(fs);
-            }
-            //Console.WriteLine("The request is sending...");
-            //var result = client.Database.GetListOfDatabaseContentsAsync("WIKI").Result;
+            //var result = client.Datatable.GetDatatableAsync("INQ/EE").Result;
+
+            //var result = client.Database.GetEntireDatabaseInCsvAsync("WIKI", Model.Enum.DownloadType.Partial).Result;
             //using (result)
-            //using (var fs = File.Create("db_content.zip"))
+            //using (var fs = File.Create("db.zip"))
             //{
-            //    Console.WriteLine("Start downloading...");
+            //    //Console.WriteLine($"Start downloading... ({result.} bytes)");
             //    result.CopyTo(fs);
             //}
+
+            //var result = client.Database.GetDatasetListStreamAsync("WIKI").Result;
+            //using (result)
+            //using (var fs = File.Create("result.zip"))
+            //{
+            //    result.CopyTo(fs);
+            //}
+            var result = client.Database.GetListAsync().Result;
             Console.WriteLine("Process completed!");
-                //var result = client.Database.GetDatabaseMetadataAsync("WIKI").Result;
-                //var databases = client.Database.GetListOfDatabasesAsync().Result;
-                //databases?.Databases?.Take(10).ForEach(md => Console.WriteLine($"{md.DatabaseCode}: {md.Description}"));
-                Console.ReadLine();
+            //var result = client.Database.GetDatabaseMetadataAsync("WIKI").Result;
+            //var databases = client.Database.GetListOfDatabasesAsync().Result;
+            //databases?.Databases?.Take(10).ForEach(md => Console.WriteLine($"{md.DatabaseCode}: {md.Description}"));
+
+            Console.ReadLine();
         }
     }
 }
