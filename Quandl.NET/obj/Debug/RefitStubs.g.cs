@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Collections.Generic;
 using System.Linq;
-using Quandl.NET.Core;
-using Quandl.NET.Core.Enum;
-using Quandl.NET.Core.Response;
+using Quandl.NET.Model;
+using Quandl.NET.Model.Enum;
+using Quandl.NET.Model.Response;
 using Refit;
 using System.IO;
 using System.Text;
@@ -32,7 +32,7 @@ namespace RefitInternalGenerated
     }
 }
 
-namespace Quandl.NET.Infrastructure.Refit
+namespace Quandl.NET.Refit
 {
     using RefitInternalGenerated;
 
@@ -75,7 +75,7 @@ namespace Quandl.NET.Infrastructure.Refit
     }
 }
 
-namespace Quandl.NET.Infrastructure.Refit
+namespace Quandl.NET.Refit
 {
     using RefitInternalGenerated;
 
@@ -100,7 +100,7 @@ namespace Quandl.NET.Infrastructure.Refit
     }
 }
 
-namespace Quandl.NET.Infrastructure.Refit
+namespace Quandl.NET.Refit
 {
     using RefitInternalGenerated;
 

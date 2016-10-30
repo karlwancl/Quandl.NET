@@ -1,11 +1,11 @@
-﻿using Quandl.NET.Core.Enum;
+﻿using Quandl.NET.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quandl.NET.Core
+namespace Quandl.NET.Model
 {
     public class DatasetDataAndMetadata
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace Quandl.NET.Core.Enum
+namespace Quandl.NET.Model.Enum
 {
     public enum ReturnFormat
     {

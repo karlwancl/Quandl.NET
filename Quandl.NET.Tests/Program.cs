@@ -16,7 +16,7 @@ namespace Quandl.NET.Tests
         {
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
-            var result = client.Database.GetEntireDatabaseAsync("WIKI", Core.Enum.DownloadType.Complete).Result;
+            var result = client.Database.GetEntireDatabaseAsync("WIKI", Model.Enum.DownloadType.Complete).Result;
             using (result)
             using (var fs = File.Create("db.zip"))
             {

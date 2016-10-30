@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Quandl.NET.Infrastructure.Refit
+namespace Quandl.NET.Refit
 {
     public class LowercaseEnumUrlParameterFormatter : IUrlParameterFormatter
     {

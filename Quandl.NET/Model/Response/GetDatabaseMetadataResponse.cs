@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quandl.NET.Core.Response
+namespace Quandl.NET.Model.Response
 {
     public class GetDatabaseMetadataResponse
     {

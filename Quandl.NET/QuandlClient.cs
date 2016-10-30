@@ -1,7 +1,7 @@
-﻿using Quandl.NET.Core;
-using Quandl.NET.Core.Enum;
-using Quandl.NET.Core.Response;
-using Quandl.NET.Infrastructure.Refit;
+﻿using Quandl.NET.Model;
+using Quandl.NET.Model.Enum;
+using Quandl.NET.Model.Response;
+using Quandl.NET.Refit;
 using Refit;
 using System;
 using System.Collections.Generic;

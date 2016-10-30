@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Quandl.NET.Core
+namespace Quandl.NET.Model
 {
     public class DatasetMetadata
     {
