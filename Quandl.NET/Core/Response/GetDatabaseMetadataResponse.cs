@@ -8,11 +8,11 @@ namespace Quandl.NET.Core.Response
 {
     public class GetDatabaseMetadataResponse
     {
-        public GetDatabaseMetadataResponse(Metadata database)
+        public GetDatabaseMetadataResponse(DatabaseMetadata database)
         {
             Database = database;
         }
 
-        public Metadata Database { get; private set; } 
+        public DatabaseMetadata Database { get; private set; } 
     }
 }

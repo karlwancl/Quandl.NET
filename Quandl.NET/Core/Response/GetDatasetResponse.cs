@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET.Core.Response
 {
-    public class GetListOfDatabasesResponse
+    public class GetDatasetResponse
     {
-        public GetListOfDatabasesResponse(List<DatabaseMetadata> databases, Meta meta)
+        public GetDatasetResponse(List<DatasetMetadata> datasets, Meta meta)
         {
-            Databases = databases;
+            Datasets = datasets;
             Meta = meta;
         }
 
-        public List<DatabaseMetadata> Databases { get; private set; }
+        public List<DatasetMetadata> Datasets { get; private set; }
 
         public Meta Meta { get; private set; }
     }

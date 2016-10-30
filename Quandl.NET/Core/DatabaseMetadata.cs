@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET.Core
 {
-    public class Metadata
+    public class DatabaseMetadata
     {
-        public Metadata(int id, string name, string database_code, string description, int datasets_count, long downloads,
+        public DatabaseMetadata(int id, string name, string database_code, string description, int datasets_count, long downloads,
             bool premium, string image)
         {
             Id = id;

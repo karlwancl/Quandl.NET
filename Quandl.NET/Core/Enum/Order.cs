@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET.Core.Enum
 {
-    public enum DownloadType
+    public enum Order
     {
-        [EnumMember(Value = "partial")]
-        Partial,
-        [EnumMember(Value = "complete")]
-        Complete
+        [EnumMember(Value = "asc")]
+        Asc,
+        [EnumMember(Value = "desc")]
+        Desc
     }
 }
