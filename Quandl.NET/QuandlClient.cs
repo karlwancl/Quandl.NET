@@ -65,7 +65,7 @@ namespace Quandl.NET
         /// <param name="databaseCode">short code for database</param>
         /// <param name="downloadType">If “partial”, returns last day of data. If “complete”, returns entire database. Default is “complete”.</param>
         /// <returns>Stream of zipped csv file (.zip)</returns>
-        public async Task<Stream> GetStreamAsync(string databaseCode, DownloadType? downloadType = null)
+        public async Task<Stream> GetZipAsync(string databaseCode, DownloadType? downloadType = null)
         {
             var content = await _api.GetAsync(databaseCode, downloadType, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -90,7 +90,7 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataStreamAsync(string databaseCode)
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode)
         {
             var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -119,7 +119,7 @@ namespace Quandl.NET
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListStreamAsync(string query = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(string query = null, int? perPage = null, int? page = null)
         {
             var content = await _api.GetListAsync(ReturnFormat.Csv, query, perPage, page, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -131,7 +131,7 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <returns>Stream of zipped csv file (.zip)</returns>
-        public async Task<Stream> GetDatasetListStreamAsync(string databaseCode)
+        public async Task<Stream> GetDatasetListZipAsync(string databaseCode)
         {
             var content = await _api.GetDatasetListAsync(databaseCode, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -179,7 +179,7 @@ namespace Quandl.NET
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <param name="fullResult">Flag to display full result</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetStreamAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null, bool? fullResult = null)
+        public async Task<Stream> GetCsvAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null, bool? fullResult = null)
         {
             var content = await _api.GetAsync(datatableCode1, datatableCode2, ReturnFormat.Csv, rowFilter, columnFilter, fullResult, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -220,7 +220,7 @@ namespace Quandl.NET
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetStreamAsync(string databaseCode, string datasetCode)
+        public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode)
         {
             var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -247,7 +247,7 @@ namespace Quandl.NET
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataStreamAsync(string databaseCode, string datasetCode)
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode)
         {
             var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey);
             return await content.ReadAsStreamAsync();
@@ -289,7 +289,7 @@ namespace Quandl.NET
         /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
         /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetDataAndMetadataStreamAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+        public async Task<Stream> GetDataAndMetadataCsvAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
             DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
         {
             var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey);
@@ -321,7 +321,7 @@ namespace Quandl.NET
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListStreamAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
         {
             var content = await _api.GetListAsync(ReturnFormat.Csv, query, databaseCode, perPage, page, _apiKey);
             return await content.ReadAsStreamAsync();

@@ -19,7 +19,7 @@ namespace Quandl.NET.Tests
 
             //var result = client.Datatable.GetStreamAsync("INQ", "EE").Result;
             //var result = client.Dataset.GetListStreamAsync("crude+oil", "ODA", 1, 1).Result;
-            var result = client.Database.GetDatasetListStreamAsync("WIKI").Result;
+            var result = client.Database.GetDatasetListZipAsync("WIKI").Result;
             //var result = client.Dataset.GetDataAndMetadataStreamAsync("WIKI", "AMAT", 20).Result;
             using (result)
             using (var fs = File.Create("datatable_wiki_amat.zip"))
