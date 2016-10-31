@@ -6,16 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace Quandl.NET.Refit
+namespace Quandl.NET.Helper
 {
-    public class LowercaseEnumUrlParameterFormatter : IUrlParameterFormatter
+    public class AdvancedUrlParameterFormatter : IUrlParameterFormatter
     {
         public string Format(object value, ParameterInfo parameterInfo)
         {
-            if (value != null)
-                return value is Enum ? value.ToString().ToLower() : value.ToString();
-            else
+            if (value == null)
                 return null;
+
+            return value is Enum ? ((Enum)value).ToEnumMemberValue() : value.ToString();
         }
     }
 }

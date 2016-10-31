@@ -32,6 +32,7 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Refit.pdb
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encodings.Web.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csprojResolveAssemblyReference.cache
-Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csproj.Quandl.NET.Tests.exe.config
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.exe
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.pdb
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime.Serialization.Primitives.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Reflection.TypeExtensions.dll

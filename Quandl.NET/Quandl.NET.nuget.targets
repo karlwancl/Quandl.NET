@@ -4,6 +4,6 @@
     <NuGetPackageRoot>$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
   </PropertyGroup>
   <ImportGroup>
-    <Import Project="$(NuGetPackageRoot)\refit\3.0.1\build\netstandard1.1\refit.targets" Condition="Exists('$(NuGetPackageRoot)\refit\3.0.1\build\netstandard1.1\refit.targets')" />
+    <Import Project="$(NuGetPackageRoot)\refit\3.0.1\build\netstandard1.3\refit.targets" Condition="Exists('$(NuGetPackageRoot)\refit\3.0.1\build\netstandard1.3\refit.targets')" />
   </ImportGroup>
 </Project>

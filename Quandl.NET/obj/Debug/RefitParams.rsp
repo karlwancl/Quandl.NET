@@ -17,8 +17,9 @@ Model\Response\GetDatasetResponse.cs
 Model\Response\GetDatasetMetadataResponse.cs
 Model\Response\GetDatatableResponse.cs
 Model\Response\GetDatabaseListResponse.cs
-Refit\IQuandlApi.cs
-Refit\LowercaseEnumUrlParameterFormatter.cs
+Helper\EnumExtension.cs
+Helper\IQuandlApi.cs
+Helper\AdvancedUrlParameterFormatter.cs
 Properties\AssemblyInfo.cs
 QuandlClient.cs
 C:\Users\karlwan\AppData\Local\Temp\.NETPortable,Version=v5.0.AssemblyAttributes.cs

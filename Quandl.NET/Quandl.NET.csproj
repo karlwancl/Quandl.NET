@@ -58,8 +58,9 @@
     <Compile Include="Model\Response\GetDatasetMetadataResponse.cs" />
     <Compile Include="Model\Response\GetDatatableResponse.cs" />
     <Compile Include="Model\Response\GetDatabaseListResponse.cs" />
-    <Compile Include="Refit\IQuandlApi.cs" />
-    <Compile Include="Refit\LowercaseEnumUrlParameterFormatter.cs" />
+    <Compile Include="Helper\EnumExtension.cs" />
+    <Compile Include="Helper\IQuandlApi.cs" />
+    <Compile Include="Helper\AdvancedUrlParameterFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuandlClient.cs" />
   </ItemGroup>

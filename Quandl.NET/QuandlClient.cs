@@ -1,20 +1,17 @@
 ﻿using Newtonsoft.Json;
-using Quandl.NET.Model;
+using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
-using Quandl.NET.Refit;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    static class Constant
+    internal static class Constant
     {
         public const string HostUri = "https://www.quandl.com/api/v3";
     }
@@ -52,10 +49,7 @@ namespace Quandl.NET
         public DatabaseApi(string apiKey) : base(apiKey)
         {
             _api = RestService.For<IDatabaseApi>(Constant.HostUri,
-                new RefitSettings
-                {
-                    UrlParameterFormatter = new LowercaseEnumUrlParameterFormatter()
-                });
+                new RefitSettings { UrlParameterFormatter = new AdvancedUrlParameterFormatter() });
         }
 
         /// <summary>
@@ -100,13 +94,15 @@ namespace Quandl.NET
         /// You can search for specific databases on Quandl using this API route. The API will return all databases related to your query.
         /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="query">Search keywords. Separate multiple keywords with a + character.</param>
+        /// <param name="query">Search keywords</param>
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
         /// <returns>Get database list response</returns>
-        public async Task<GetDatabaseListResponse> GetListAsync(string query = null, int? perPage = null, int? page = null)
+        public async Task<GetDatabaseListResponse> GetListAsync(List<string> query = null, int? perPage = null, int? page = null)
         {
-            var content = await _api.GetListAsync(ReturnFormat.Json, query, perPage, page, _apiKey);
+            var correctedQuery = query != null ? string.Join("+", query) : null;
+
+            var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, perPage, page, _apiKey);
             var json = await content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
         }
@@ -115,13 +111,15 @@ namespace Quandl.NET
         /// You can search for specific databases on Quandl using this API route. The API will return all databases related to your query.
         /// <a href="https://www.quandl.com/docs/api?csv#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="query">Search keywords. Separate multiple keywords with a + character.</param>
+        /// <param name="query">Search keywords</param>
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListCsvAsync(string query = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(List<string> query = null, int? perPage = null, int? page = null)
         {
-            var content = await _api.GetListAsync(ReturnFormat.Csv, query, perPage, page, _apiKey);
+            var correctedQuery = query != null ? string.Join("+", query) : null;
+
+            var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, perPage, page, _apiKey);
             return await content.ReadAsStreamAsync();
         }
 
@@ -145,10 +143,7 @@ namespace Quandl.NET
         public DatatableApi(string apiKey) : base(apiKey)
         {
             _api = RestService.For<IDatatableApi>(Constant.HostUri,
-                new RefitSettings
-                {
-                    UrlParameterFormatter = new LowercaseEnumUrlParameterFormatter()
-                });
+                new RefitSettings { UrlParameterFormatter = new AdvancedUrlParameterFormatter() });
         }
 
         // TODO: Test if using dictionary for query map works
@@ -156,14 +151,18 @@ namespace Quandl.NET
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="datatableCode1">first part of short code for datatable</param>
-        /// <param name="datatableCode2">second part of short code for datatable</param>
+        /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
+        /// <param name="nextCursorId">Next cursor id</param>
         /// <returns>Get datatable response</returns>
-        public async Task<GetDatatableResponse> GetAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null)
+        public async Task<GetDatatableResponse> GetAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, List<string> columnFilter = null, int? nextCursorId = null)
         {
-            var content =  await _api.GetAsync(datatableCode1, datatableCode2, ReturnFormat.Json, rowFilter, columnFilter, null, _apiKey);
+            var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
+            var correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
+            var correctedDatatableCode = datatableCode.Split('/');
+
+            var content = await _api.GetAsync(correctedDatatableCode[0], correctedDatatableCode[1], ReturnFormat.Json, correctedRowFilter, correctedColumnFilter, null, nextCursorId, _apiKey);
             var json = await content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<GetDatatableResponse>(json);
         }
@@ -173,15 +172,20 @@ namespace Quandl.NET
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?csv#search-for-databases">Reference</a>
         /// </summary>
-        /// <param name="datatableCode1">first part of short code for datatable</param>
-        /// <param name="datatableCode2">second part of short code for datatable</param>
+        /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <param name="fullResult">Flag to display full result</param>
+        /// <param name="nextCursorId">Next cursor id</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(string datatableCode1, string datatableCode2, Dictionary<string, string> rowFilter = null, string columnFilter = null, bool? fullResult = null)
+        public async Task<Stream> GetCsvAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, List<string> columnFilter = null, bool? fullResult = null, int? nextCursorId = null)
         {
-            var content = await _api.GetAsync(datatableCode1, datatableCode2, ReturnFormat.Csv, rowFilter, columnFilter, fullResult, _apiKey);
+            var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
+            var correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
+            var correctedDatatableCode = datatableCode.Split('/');
+            var correctedNextCursorId = fullResult == null ? nextCursorId : null;
+
+            var content = await _api.GetAsync(correctedDatatableCode[0], correctedDatatableCode[1], ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter, fullResult, correctedNextCursorId, _apiKey);
             return await content.ReadAsStreamAsync();
         }
     }
@@ -193,10 +197,7 @@ namespace Quandl.NET
         public DatasetApi(string apiKey) : base(apiKey)
         {
             _api = RestService.For<IDatasetApi>(Constant.HostUri,
-                new RefitSettings
-                {
-                    UrlParameterFormatter = new LowercaseEnumUrlParameterFormatter()
-                });
+                new RefitSettings { UrlParameterFormatter = new AdvancedUrlParameterFormatter() });
         }
 
         /// <summary>
@@ -254,7 +255,7 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// This call returns data and metadata for a given dataset. 
+        /// This call returns data and metadata for a given dataset.
         /// <a href="https://www.quandl.com/docs/api?json#get-data-and-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
@@ -276,7 +277,7 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// This call returns data and metadata for a given dataset. 
+        /// This call returns data and metadata for a given dataset.
         /// <a href="https://www.quandl.com/docs/api?json#get-data-and-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
@@ -297,23 +298,25 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// You can search for individual datasets on Quandl using this API route. 
+        /// You can search for individual datasets on Quandl using this API route.
         /// <a href="https://www.quandl.com/docs/api?json#dataset-search">Reference</a>
         /// </summary>
-        /// <param name="query">Your search query. Separate multiple items with “+”.</param>
+        /// <param name="query">Your search query</param>
         /// <param name="databaseCode">Restrict search results to a specific database.</param>
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
         /// <returns>Get dataset response</returns>
-        public async Task<GetDatasetListResponse> GetListAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<GetDatasetListResponse> GetListAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
         {
-            var content = await _api.GetListAsync(ReturnFormat.Json, query, databaseCode, perPage, page, _apiKey);
+            var correctedQuery = query != null ? string.Join("+", query) : null;
+
+            var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, databaseCode, perPage, page, _apiKey);
             var json = await content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
         }
 
         /// <summary>
-        /// You can search for individual datasets on Quandl using this API route. 
+        /// You can search for individual datasets on Quandl using this API route.
         /// <a href="https://www.quandl.com/docs/api?csv#dataset-search">Reference</a>
         /// </summary>
         /// <param name="query">Your search query. Separate multiple items with “+”.</param>
@@ -321,9 +324,11 @@ namespace Quandl.NET
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListCsvAsync(string query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
         {
-            var content = await _api.GetListAsync(ReturnFormat.Csv, query, databaseCode, perPage, page, _apiKey);
+            var correctedQuery = query != null ? string.Join("+", query) : null;
+
+            var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, databaseCode, perPage, page, _apiKey);
             return await content.ReadAsStreamAsync();
         }
     }
