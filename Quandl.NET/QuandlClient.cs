@@ -247,7 +247,7 @@ namespace Quandl.NET
             var correctedNextCursorId = fullResult == null ? nextCursorId : null;
 
             var content = await GetContentAsync(datatableCode, ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter,
-                fullResult, nextCursorId, _apiKey, token).ConfigureAwait(false);
+                fullResult, correctedNextCursorId, _apiKey, token).ConfigureAwait(false);
 
             return await content.ReadAsStreamAsync().ConfigureAwait(false);
         }
