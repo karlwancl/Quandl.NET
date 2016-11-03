@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Quandl.NET.Helper
@@ -15,40 +16,36 @@ namespace Quandl.NET.Helper
     interface IDatabaseApi
     {
         [Get("/databases/{database_code}/data")]
-        Task<HttpContent> GetAsync(string database_code, DownloadType? download_type, string api_key);
+        Task<HttpContent> GetAsync(string database_code, DownloadType? download_type, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/databases/{database_code}.{return_format}")]
-        Task<HttpContent> GetMetadataAsync(string database_code, ReturnFormat return_format, string api_key);
+        Task<HttpContent> GetMetadataAsync(string database_code, ReturnFormat return_format, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/databases.{return_format}")]
-        Task<HttpContent> GetListAsync(ReturnFormat return_format, string query, int? per_page, int? page, string api_key);
+        Task<HttpContent> GetListAsync(ReturnFormat return_format, string query, int? per_page, int? page, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/databases/{database_code}/codes.csv")]
-        Task<HttpContent> GetDatasetListAsync(string database_code, string api_key);
+        Task<HttpContent> GetDatasetListAsync(string database_code, string api_key, CancellationToken token = default(CancellationToken));
     }
 
     interface IDatatableApi
     {
         // Fallback to HttpClient since refit doesn't support dynamic query parameters & url parameter with slash
-
-        //[Get("/datatables/{datatable_code_1}/{datatable_code_2}.{format}")]
-        //Task<HttpContent> GetAsync(string datatable_code_1, string datatable_code_2, ReturnFormat format, QueryDictionary rowFilter,
-        //    [AliasAs("qopts.columns")]string columnFilter, [AliasAs("qopts.export")]bool? full_result, [AliasAs("qopts.cursor_id")]int? next_cursor_id, string api_key);
     }
 
     interface IDatasetApi
     {
         [Get("/datasets/{database_code}/{dataset_code}/data.{return_format}")]
-        Task<HttpContent> GetAsync(string database_code, string dataset_code, ReturnFormat return_format, string api_key);
+        Task<HttpContent> GetAsync(string database_code, string dataset_code, ReturnFormat return_format, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/datasets/{database_code}/{dataset_code}/metadata.{return_format}")]
-        Task<HttpContent> GetMetadataAsync(string database_code, string dataset_code, ReturnFormat return_format, string api_key);
+        Task<HttpContent> GetMetadataAsync(string database_code, string dataset_code, ReturnFormat return_format, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/datasets/{database_code}/{dataset_code}.{return_format}")]
         Task<HttpContent> GetDataAndMetadataAsync(string database_code, string dataset_code, ReturnFormat return_format, int? limit, int? column_index,
-            DateTime? start_date, DateTime? end_date, Order? order, Collapse? collapse, Transform? transform, string api_key);
+            DateTime? start_date, DateTime? end_date, Order? order, Collapse? collapse, Transform? transform, string api_key, CancellationToken token = default(CancellationToken));
 
         [Get("/datasets.{return_format}")]
-        Task<HttpContent> GetListAsync(ReturnFormat return_format, string query, string database_code, int? per_page, int? page, string api_key);
+        Task<HttpContent> GetListAsync(ReturnFormat return_format, string query, string database_code, int? per_page, int? page, string api_key, CancellationToken token = default(CancellationToken));
     }
 }

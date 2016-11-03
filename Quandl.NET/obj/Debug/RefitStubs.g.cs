@@ -8,6 +8,7 @@ using Quandl.NET.Model.Response;
 using Refit;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 /* ******** Hey You! *********
@@ -48,27 +49,27 @@ namespace Quandl.NET.Helper
             Client = client;
         }
 
-        public virtual Task<HttpContent> GetAsync(string database_code,DownloadType? download_type,string api_key)
+        public virtual Task<HttpContent> GetAsync(string database_code,DownloadType? download_type,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,download_type,api_key };
+            var arguments = new object[] { database_code,download_type,api_key,token };
             return (Task<HttpContent>) methodImpls["GetAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetMetadataAsync(string database_code,ReturnFormat return_format,string api_key)
+        public virtual Task<HttpContent> GetMetadataAsync(string database_code,ReturnFormat return_format,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,return_format,api_key };
+            var arguments = new object[] { database_code,return_format,api_key,token };
             return (Task<HttpContent>) methodImpls["GetMetadataAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetListAsync(ReturnFormat return_format,string query,int? per_page,int? page,string api_key)
+        public virtual Task<HttpContent> GetListAsync(ReturnFormat return_format,string query,int? per_page,int? page,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { return_format,query,per_page,page,api_key };
+            var arguments = new object[] { return_format,query,per_page,page,api_key,token };
             return (Task<HttpContent>) methodImpls["GetListAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetDatasetListAsync(string database_code,string api_key)
+        public virtual Task<HttpContent> GetDatasetListAsync(string database_code,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,api_key };
+            var arguments = new object[] { database_code,api_key,token };
             return (Task<HttpContent>) methodImpls["GetDatasetListAsync"](Client, arguments);
         }
 
@@ -91,27 +92,27 @@ namespace Quandl.NET.Helper
             Client = client;
         }
 
-        public virtual Task<HttpContent> GetAsync(string database_code,string dataset_code,ReturnFormat return_format,string api_key)
+        public virtual Task<HttpContent> GetAsync(string database_code,string dataset_code,ReturnFormat return_format,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,dataset_code,return_format,api_key };
+            var arguments = new object[] { database_code,dataset_code,return_format,api_key,token };
             return (Task<HttpContent>) methodImpls["GetAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetMetadataAsync(string database_code,string dataset_code,ReturnFormat return_format,string api_key)
+        public virtual Task<HttpContent> GetMetadataAsync(string database_code,string dataset_code,ReturnFormat return_format,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,dataset_code,return_format,api_key };
+            var arguments = new object[] { database_code,dataset_code,return_format,api_key,token };
             return (Task<HttpContent>) methodImpls["GetMetadataAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetDataAndMetadataAsync(string database_code,string dataset_code,ReturnFormat return_format,int? limit,int? column_index,DateTime? start_date,DateTime? end_date,Order? order,Collapse? collapse,Transform? transform,string api_key)
+        public virtual Task<HttpContent> GetDataAndMetadataAsync(string database_code,string dataset_code,ReturnFormat return_format,int? limit,int? column_index,DateTime? start_date,DateTime? end_date,Order? order,Collapse? collapse,Transform? transform,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { database_code,dataset_code,return_format,limit,column_index,start_date,end_date,order,collapse,transform,api_key };
+            var arguments = new object[] { database_code,dataset_code,return_format,limit,column_index,start_date,end_date,order,collapse,transform,api_key,token };
             return (Task<HttpContent>) methodImpls["GetDataAndMetadataAsync"](Client, arguments);
         }
 
-        public virtual Task<HttpContent> GetListAsync(ReturnFormat return_format,string query,string database_code,int? per_page,int? page,string api_key)
+        public virtual Task<HttpContent> GetListAsync(ReturnFormat return_format,string query,string database_code,int? per_page,int? page,string api_key,CancellationToken token)
         {
-            var arguments = new object[] { return_format,query,database_code,per_page,page,api_key };
+            var arguments = new object[] { return_format,query,database_code,per_page,page,api_key,token };
             return (Task<HttpContent>) methodImpls["GetListAsync"](Client, arguments);
         }
 

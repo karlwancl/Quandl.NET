@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Quandl.NET
@@ -63,12 +64,13 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="downloadType">If “partial”, returns last day of data. If “complete”, returns entire database. Default is “complete”.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of zipped csv file (.zip)</returns>
-        public async Task<Stream> GetZipAsync(string databaseCode, DownloadType downloadType = DownloadType.Complete)
+        public async Task<Stream> GetZipAsync(string databaseCode, DownloadType downloadType = DownloadType.Complete, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetAsync(databaseCode, downloadType, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetAsync(databaseCode, downloadType, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -82,12 +84,13 @@ namespace Quandl.NET
         /// <a href="https://www.quandl.com/docs/api?json#get-database-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get database metadata response</returns>
-        public async Task<GetDatabaseMetadataResponse> GetMetadataAsync(string databaseCode)
+        public async Task<GetDatabaseMetadataResponse> GetMetadataAsync(string databaseCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatabaseMetadataResponse>(json);
@@ -104,12 +107,13 @@ namespace Quandl.NET
         /// <a href="https://www.quandl.com/docs/api?csv#get-database-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataCsvAsync(string databaseCode)
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -125,14 +129,15 @@ namespace Quandl.NET
         /// <param name="query">Search keywords</param>
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get database list response</returns>
-        public async Task<GetDatabaseListResponse> GetListAsync(List<string> query = null, int? perPage = null, int? page = null)
+        public async Task<GetDatabaseListResponse> GetListAsync(List<string> query = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
                 var correctedQuery = query != null ? string.Join("+", query) : null;
 
-                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, perPage, page, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
@@ -151,14 +156,15 @@ namespace Quandl.NET
         /// <param name="query">Search keywords</param>
         /// <param name="perPage">Number of search results per page</param>
         /// <param name="page">Page number to return</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListCsvAsync(List<string> query = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(List<string> query = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
                 var correctedQuery = query != null ? string.Join("+", query) : null;
 
-                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, perPage, page, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -172,12 +178,13 @@ namespace Quandl.NET
         /// <a href="https://www.quandl.com/docs/api?csv#get-list-of-database-contents">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of zipped csv file (.zip)</returns>
-        public async Task<Stream> GetDatasetListZipAsync(string databaseCode)
+        public async Task<Stream> GetDatasetListZipAsync(string databaseCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetDatasetListAsync(databaseCode, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetDatasetListAsync(databaseCode, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -205,13 +212,16 @@ namespace Quandl.NET
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <param name="nextCursorId">Next cursor id</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get datatable response</returns>
-        public async Task<GetDatatableResponse> GetAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, List<string> columnFilter = null, int? nextCursorId = null)
+        public async Task<GetDatatableResponse> GetAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, 
+            List<string> columnFilter = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
         {
             var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
             string correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
 
-            using (var content = await GetContentAsync(datatableCode, ReturnFormat.Json, correctedRowFilter, correctedColumnFilter, null, nextCursorId, _apiKey).ConfigureAwait(false))
+            using (var content = await GetContentAsync(datatableCode, ReturnFormat.Json, correctedRowFilter, correctedColumnFilter, 
+                null, nextCursorId, _apiKey, token).ConfigureAwait(false))
             {
                 var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                 return JsonConvert.DeserializeObject<GetDatatableResponse>(json);
@@ -227,19 +237,23 @@ namespace Quandl.NET
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <param name="fullResult">Flag to display full result</param>
         /// <param name="nextCursorId">Next cursor id</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, List<string> columnFilter = null, bool? fullResult = null, int? nextCursorId = null)
+        public async Task<Stream> GetCsvAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, 
+            List<string> columnFilter = null, bool? fullResult = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
         {
             var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
             var correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
             var correctedNextCursorId = fullResult == null ? nextCursorId : null;
 
-            var content = await GetContentAsync(datatableCode, ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter, fullResult, nextCursorId, _apiKey).ConfigureAwait(false);
+            var content = await GetContentAsync(datatableCode, ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter,
+                fullResult, nextCursorId, _apiKey, token).ConfigureAwait(false);
+
             return await content.ReadAsStreamAsync().ConfigureAwait(false);
         }
 
         private async Task<HttpContent> GetContentAsync(string datatable_code, ReturnFormat format, Dictionary<string, string> row_filter, string column_filter,
-            bool? full_result, int? next_cursor_id, string api_key)
+            bool? full_result, int? next_cursor_id, string api_key, CancellationToken token = default(CancellationToken))
         {
             using (var client = new HttpClient())
             {
@@ -267,7 +281,7 @@ namespace Quandl.NET
 
                 queryBuilder.Append($"api_key={api_key}");
 
-                var response = await client.GetAsync($"{baseAddress}?{queryBuilder}").ConfigureAwait(false);
+                var response = await client.GetAsync($"{baseAddress}?{queryBuilder}", token).ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -307,12 +321,13 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get dataset response</returns>
-        public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode)
+        public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
@@ -330,12 +345,13 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode)
+        public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -350,12 +366,13 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <<param name="token">Cancellation token</param>
         /// <returns>Get dataset metadata response</returns>
-        public async Task<GetDatasetMetadataResponse> GetMetadataAsync(string databaseCode, string datasetCode)
+        public async Task<GetDatasetMetadataResponse> GetMetadataAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatasetMetadataResponse>(json);
@@ -373,12 +390,13 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode)
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -400,13 +418,15 @@ namespace Quandl.NET
         /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
         /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
         /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get data and metadata response</returns>
         public async Task<GetDataAndMetadataResponse> GetDataAndMetadataAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
-            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, 
+                    endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDataAndMetadataResponse>(json);
@@ -431,13 +451,15 @@ namespace Quandl.NET
         /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
         /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
         /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetDataAndMetadataCsvAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
-            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, 
+                    endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -454,14 +476,15 @@ namespace Quandl.NET
         /// <param name="databaseCode">Restrict search results to a specific database.</param>
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get dataset response</returns>
-        public async Task<GetDatasetListResponse> GetListAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<GetDatasetListResponse> GetListAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
                 var correctedQuery = query != null ? string.Join("+", query) : null;
 
-                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false))
+                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, databaseCode, perPage, page, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
@@ -481,14 +504,15 @@ namespace Quandl.NET
         /// <param name="databaseCode">Restrict search results to a specific database.</param>
         /// <param name="perPage">Number of search results per page.</param>
         /// <param name="page">Page number to return.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetListCsvAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
+        public async Task<Stream> GetListCsvAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
                 var correctedQuery = query != null ? string.Join("+", query) : null;
 
-                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false);
+                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, databaseCode, perPage, page, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
