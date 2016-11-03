@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Quandl.NET.Exception;
 using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
@@ -64,8 +66,15 @@ namespace Quandl.NET
         /// <returns>Stream of zipped csv file (.zip)</returns>
         public async Task<Stream> GetZipAsync(string databaseCode, DownloadType downloadType = DownloadType.Complete)
         {
-            var content = await _api.GetAsync(databaseCode, downloadType, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetAsync(databaseCode, downloadType, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -76,10 +85,17 @@ namespace Quandl.NET
         /// <returns>Get database metadata response</returns>
         public async Task<GetDatabaseMetadataResponse> GetMetadataAsync(string databaseCode)
         {
-            using (var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDatabaseMetadataResponse>(json);
+                using (var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDatabaseMetadataResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -91,8 +107,15 @@ namespace Quandl.NET
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetMetadataCsvAsync(string databaseCode)
         {
-            var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -105,12 +128,19 @@ namespace Quandl.NET
         /// <returns>Get database list response</returns>
         public async Task<GetDatabaseListResponse> GetListAsync(List<string> query = null, int? perPage = null, int? page = null)
         {
-            var correctedQuery = query != null ? string.Join("+", query) : null;
-
-            using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
+                var correctedQuery = query != null ? string.Join("+", query) : null;
+
+                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -124,10 +154,17 @@ namespace Quandl.NET
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetListCsvAsync(List<string> query = null, int? perPage = null, int? page = null)
         {
-            var correctedQuery = query != null ? string.Join("+", query) : null;
+            try
+            {
+                var correctedQuery = query != null ? string.Join("+", query) : null;
 
-            var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, perPage, page, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -138,8 +175,15 @@ namespace Quandl.NET
         /// <returns>Stream of zipped csv file (.zip)</returns>
         public async Task<Stream> GetDatasetListZipAsync(string databaseCode)
         {
-            var content = await _api.GetDatasetListAsync(databaseCode, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetDatasetListAsync(databaseCode, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
     }
 
@@ -194,13 +238,13 @@ namespace Quandl.NET
             return await content.ReadAsStreamAsync().ConfigureAwait(false);
         }
 
-        private async Task<HttpContent> GetContentAsync(string database_code, ReturnFormat format, Dictionary<string, string> row_filter, string column_filter,
+        private async Task<HttpContent> GetContentAsync(string datatable_code, ReturnFormat format, Dictionary<string, string> row_filter, string column_filter,
             bool? full_result, int? next_cursor_id, string api_key)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
-                var baseAddress = $"{Constant.HostUri}/datatables/{database_code}.{format.ToEnumMemberValue()}";
+                var baseAddress = $"{Constant.HostUri}/datatables/{datatable_code}.{format.ToEnumMemberValue()}";
 
                 var queryBuilder = new StringBuilder();
 
@@ -224,6 +268,23 @@ namespace Quandl.NET
                 queryBuilder.Append($"api_key={api_key}");
 
                 var response = await client.GetAsync($"{baseAddress}?{queryBuilder}").ConfigureAwait(false);
+                if (!response.IsSuccessStatusCode)
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        // Maybe a problem of wrong datatable_code in the uri, let's assume it is a wrong datatable_code if it occurs
+                        throw new QuandlException("QECx02", "You have submitted an incorrect Quandl code. Please check your Quandl codes and try again.");
+                    }
+                    else if (response.Content != null)
+                    {
+                        var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        if (!string.IsNullOrEmpty(content) && content.Contains("quandl_error"))
+                        {
+                            var quandlErrorAggregate = JsonConvert.DeserializeObject<QuandlErrorAggregate>(content);
+                            throw new QuandlException(quandlErrorAggregate.QuandlError);
+                        }
+                    }
+                }
                 response.EnsureSuccessStatusCode();
                 return response.Content;
             }
@@ -249,10 +310,17 @@ namespace Quandl.NET
         /// <returns>Get dataset response</returns>
         public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode)
         {
-            using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
+                using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -265,8 +333,15 @@ namespace Quandl.NET
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode)
         {
-            var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -278,10 +353,17 @@ namespace Quandl.NET
         /// <returns>Get dataset metadata response</returns>
         public async Task<GetDatasetMetadataResponse> GetMetadataAsync(string databaseCode, string datasetCode)
         {
-            using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDatasetMetadataResponse>(json);
+                using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDatasetMetadataResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -294,8 +376,15 @@ namespace Quandl.NET
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode)
         {
-            var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -315,10 +404,17 @@ namespace Quandl.NET
         public async Task<GetDataAndMetadataResponse> GetDataAndMetadataAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
             DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
         {
-            using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDataAndMetadataResponse>(json);
+                using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDataAndMetadataResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -339,8 +435,15 @@ namespace Quandl.NET
         public async Task<Stream> GetDataAndMetadataCsvAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
             DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null)
         {
-            var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            try
+            {
+                var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate, order, collapse, transform, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
 
         /// <summary>
@@ -354,12 +457,19 @@ namespace Quandl.NET
         /// <returns>Get dataset response</returns>
         public async Task<GetDatasetListResponse> GetListAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
         {
-            var correctedQuery = query != null ? string.Join("+", query) : null;
-
-            using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false))
+            try
             {
-                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
+                var correctedQuery = query != null ? string.Join("+", query) : null;
+
+                using (var content = await _api.GetListAsync(ReturnFormat.Json, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false))
+                {
+                    var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
+                }
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
             }
         }
 
@@ -374,10 +484,17 @@ namespace Quandl.NET
         /// <returns>Stream of csv file (.csv)</returns>
         public async Task<Stream> GetListCsvAsync(List<string> query, string databaseCode = null, int? perPage = null, int? page = null)
         {
-            var correctedQuery = query != null ? string.Join("+", query) : null;
+            try
+            {
+                var correctedQuery = query != null ? string.Join("+", query) : null;
 
-            var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false);
-            return await content.ReadAsStreamAsync().ConfigureAwait(false);
+                var content = await _api.GetListAsync(ReturnFormat.Csv, correctedQuery, databaseCode, perPage, page, _apiKey).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+            }
         }
     }
 }

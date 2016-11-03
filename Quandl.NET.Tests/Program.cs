@@ -57,6 +57,9 @@ namespace Quandl.NET.Tests
             //    result.CopyTo(fs);
             //}
 
+            //var result = client.Database.GetMetadataAsync("ABCD").Result;
+            var result = client.Datatable.GetAsync("ABCD").Result;
+
             Console.WriteLine("Process completed!");
         }
     }
