@@ -1,9 +1,8 @@
 # Quandl.NET (Beta)
-A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android,
- Xamarin.Mac & Universal Windows Platform.
+Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android, Xamarin.Mac & Universal Windows Platform.
 
 ### Features
-* Allows access to financial and economic data through Quandl API
+* Allows access to financial and economic data through Quandl v3 API
 
 ### Supported Platforms
 * .NET Core 1.0
