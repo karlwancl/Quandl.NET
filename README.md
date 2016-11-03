@@ -1,5 +1,5 @@
 # Quandl.NET (Beta)
-A .NET wrapper built on Quandl REST API, based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android,
+A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android,
  Xamarin.Mac & Universal Windows Platform.
 
 ### Features
