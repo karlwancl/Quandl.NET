@@ -41,7 +41,7 @@ namespace Quandl.NET.Tests
 
             //var result = client.Database.GetZipAsync("WIKI", Model.Enum.DownloadType.Partial).Result;
             //var result = client.Database.GetMetadataCsvAsync("WIKI").Result;
-            //var result = client.Database.GetListCsvAsync(new List<string> { "stock", "price" }, 5, 1).Result;
+            //var result = client.Database.GetListCsvAsync(new List<string> { "stock", "price" }).Result;
             //var result = client.Database.GetDatasetListZipAsync("YC").Result;
             //var result = client.Datatable.GetCsvAsync("INQ/EE", rowFilter, columnFilter).Result;
             //var result = client.Dataset.GetCsvAsync("WIKI", "FB").Result;
@@ -50,12 +50,12 @@ namespace Quandl.NET.Tests
             //var result = client.Dataset.GetMetadataCsvAsync("WIKI", "FB").Result;
             //var result = client.Dataset.GetDataAndMetadataCsvAsync("WIKI", "FB", columnIndex: 4, startDate: new DateTime(2014, 1, 1),
             //    endDate: new DateTime(2014, 12, 31), collapse: Model.Enum.Collapse.Monthly, transform: Model.Enum.Transform.Rdiff, order: Model.Enum.Order.Ascending).Result;
-            var result = client.Dataset.GetListCsvAsync(new List<string> { "crude", "oil" }, "ODA", 1, 1).Result;
-            using (result)
-            using (var fs = File.Create("test.csv"))
-            {
-                result.CopyTo(fs);
-            }
+            //var result = client.Dataset.GetListCsvAsync(new List<string> { "crude", "oil" }, "ODA", 1, 1).Result;
+            //using (result)
+            //using (var fs = File.Create("test.csv"))
+            //{
+            //    result.CopyTo(fs);
+            //}
 
             Console.WriteLine("Process completed!");
         }

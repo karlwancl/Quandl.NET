@@ -1,20 +1,22 @@
 # Quandl.NET (Beta)
-A .NET wrapper built on Quandl.NET REST API, based on .NET standard 1.1, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
+A .NET wrapper built on Quandl REST API, based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android,
+ Xamarin.Mac & Universal Windows Platform.
 
 ### Features
 * Allows access to financial and economic data through Quandl API
 
 ### Supported Platforms
 * .NET Core 1.0
-* .NET framework 4.5 or above
-* Xamarin.iOS
+* .NET Framework 4.6 or above
+* Xamarin.iOS 64-bit (Unified API)
 * Xamarin.Android
+* Xamarin.Mac
 * Universal Windows Platform
 
-<!--### How To Install
+### How To Install
 You can find the package through Nuget
 
-	PM> Install-Package GoogleCloudPrintApi-->
+	PM> Install-Package Quandl.NET
 
 ### How To Use
 
@@ -23,32 +25,55 @@ You can find the package through Nuget
 	
 #### Database API Access
 
-##### Save entire database as zip file to target location
-	// Be careful to the download size of the zip file, may take a while to complete
-	using (var ds = await client.Database.GetStreamAsync(databaseCode))
-	using (var fs = File.Create(zipFileName))
-	{
-		ds.CopyTo(fs);
-	}
-	
-##### Save dataset list as zip file to target location
-	using (var ds = await client.Database.GetDatasetListStreamAsync(databaseCode))
-	using (var fs = File.Create(zipFileName))
-	{
-		ds.CopyTo(fs);
-	}
-	
-##### Get database list
-Under construction
+##### Get Entire Database (Zip ONLY): [Reference](https://www.quandl.com/docs/api?csv#get-entire-database)
 
-##### Get database metadata
-Unde construction
+	// Be careful of the size of the zip file if using complete mode
+	using (var dbs = await client.Database.GetZipAsync("WIKI"))
+	using (var fs = File.Create(/* zipFileName */))
+	{
+		dbs.CopyTo(fs);
+	}
+	
+##### Get Database Metadata (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-database-metadata)
+	var result = await client.Database.GetMetadataAsync("WIKI");
+	
+##### Get Database List (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#search-for-databases)
+	var result = await client.Database.GetListAsync();
+
+##### Get Available Dataset List for a Database (Zip ONLY): [Reference](https://www.quandl.com/docs/api?csv#get-list-of-database-contents)
+	using (var dss = await client.Database.GetDatasetListZipAsync("YC"))
+	using (var fs = File.Create(/* zipFileName */))
+	{
+		dss.CopyTo(fs);
+	}
 
 #### Datatable API Access
-Under construction
+
+##### Get Entire Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-entire-datatable)
+	var result = await client.Datatable.GetAsync("INQ/EE");
+	
+##### Query for Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#filter-rows-and-columns)
+	var rowFilter = new Dictionary<string, List<string>>();
+	rowFilter.Add("isin", new List<string> { "FI0009000681", "DE0007236101" });
+	
+	var columnFilter = new List<string> { "isin", "company" };
+	
+	var result = await client.Datatable.GetAsync("INQ/EE", rowFilter, columnFilter);
 
 #### Dataset API Access
-Under construction
+
+##### Get a Dataset (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-data)
+	var result = await client.Dataset.GetAsync("WIKI", "FB");
+	
+##### Get Dataset Metadata (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-metadata)
+	var result = await client.Dataset.GetMetadataAsync("WIKI", "FB");
+	
+##### Query For Dataset (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-data-and-metadata)
+	var result = await client.Dataset.GetDataAndMetadataAsync("WIKI", "FB", columnIndex: 4, startDate: new Date(2014, 1, 1), endDate: new Date(2014, 12, 31), collapse: Model.Enum.Collapse.Monthly, transform: Model.Enum.Transform.Rdiff);
+	
+##### Get Dataset by Query (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#dataset-search)
+	var query = new List<string> { "crude", "oil" };
+	var result = await client.Dataset.GetListAsync(query, "ODA", 1, 1);
 
 ### Powered by
 * [Refit](https://github.com/paulcbetts/refit) ([@paulcbetts](https://github.com/paulcbetts)) - A robust REST api library 

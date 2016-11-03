@@ -155,7 +155,7 @@ namespace Quandl.NET
 
         /// <summary>
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
-        /// <a href="https://www.quandl.com/docs/api?json#search-for-databases">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?json#get-entire-datatable">Reference</a>
         /// </summary>
         /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
@@ -176,7 +176,7 @@ namespace Quandl.NET
 
         /// <summary>
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
-        /// <a href="https://www.quandl.com/docs/api?csv#search-for-databases">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-entire-datatable">Reference</a>
         /// </summary>
         /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
@@ -324,7 +324,7 @@ namespace Quandl.NET
 
         /// <summary>
         /// This call returns data and metadata for a given dataset.
-        /// <a href="https://www.quandl.com/docs/api?json#get-data-and-metadata">Reference</a>
+        /// <a href="https://www.quandl.com/docs/api?csv#get-data-and-metadata">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
