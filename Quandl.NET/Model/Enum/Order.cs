@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET.Model.Enum
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum Order
     {
         [EnumMember(Value = "asc")]
-        Asc,
+        Ascending,
         [EnumMember(Value = "desc")]
-        Desc
+        Descending
     }
 }

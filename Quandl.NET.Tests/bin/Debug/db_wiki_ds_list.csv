@@ -1,3 +1,0 @@
-id,name,database_code,description,datasets_count,downloads,premium,image,favorite,url_name
-14005,Zacks Equity Prices,ZEP,"Stock price history for over 28,000 active and dead tickers. Excellent source for back-testing. Covers daily close prices since 1987, volume since 1990, high and low prices since mid-1995, and open prices since mid-1999. 
-",30660,97826862,true,https://quandl-data-upload.s3.amazonaws.com/uploads/source/profile_image/14005/thumb_thumb_zacks_thumb.png,false,Zacks-Equity-Prices

@@ -29,11 +29,11 @@ namespace Quandl.NET.Helper
 
     interface IDatatableApi
     {
-        //[Get("/datatables/{datatable_code}.{format}")]
-        //Task<HttpContent> GetAsync(string datatable_code, ReturnFormat format, Dictionary<string, string> rowFilter, [AliasAs("qopts.columns")]string columnFilter, [AliasAs("qopts.export")]bool? full_result, [AliasAs("qopts.cursor_id")]int? next_cursor_id, string api_key);
+        // Fallback to HttpClient since refit doesn't support dynamic query parameters & url parameter with slash
 
-        [Get("/datatables/{datatable_code_1}/{datatable_code_2}.{format}")]
-        Task<HttpContent> GetAsync(string datatable_code_1, string datatable_code_2, ReturnFormat format, Dictionary<string, string> rowFilter, [AliasAs("qopts.columns")]string columnFilter, [AliasAs("qopts.export")]bool? full_result, [AliasAs("qopts.cursor_id")]int? next_cursor_id, string api_key);
+        //[Get("/datatables/{datatable_code_1}/{datatable_code_2}.{format}")]
+        //Task<HttpContent> GetAsync(string datatable_code_1, string datatable_code_2, ReturnFormat format, QueryDictionary rowFilter,
+        //    [AliasAs("qopts.columns")]string columnFilter, [AliasAs("qopts.export")]bool? full_result, [AliasAs("qopts.cursor_id")]int? next_cursor_id, string api_key);
     }
 
     interface IDatasetApi

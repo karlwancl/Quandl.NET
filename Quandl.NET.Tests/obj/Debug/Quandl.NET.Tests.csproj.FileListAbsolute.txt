@@ -34,5 +34,5 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.En
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csprojResolveAssemblyReference.cache
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.exe
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.pdb
-Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime.Serialization.Primitives.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Reflection.TypeExtensions.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime.Serialization.Primitives.dll
