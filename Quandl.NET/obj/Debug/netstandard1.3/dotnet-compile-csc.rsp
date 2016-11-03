@@ -77,6 +77,8 @@
 -r:"C:\Users\karlwan\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\karlwan\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll"
 "Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\QuandlClient.cs"
+"Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\Exception\QuandlError.cs"
+"Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\Exception\QuandlException.cs"
 "Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\Helper\AdvancedUrlParameterFormatter.cs"
 "Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\Helper\EnumExtension.cs"
 "Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\Helper\IQuandlApi.cs"
