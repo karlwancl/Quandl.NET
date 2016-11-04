@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Quandl.NET.Helper
 {
-    public class AdvancedUrlParameterFormatter : IUrlParameterFormatter
+    class AdvancedUrlParameterFormatter : IUrlParameterFormatter
     {
         public string Format(object value, ParameterInfo parameterInfo)
         {

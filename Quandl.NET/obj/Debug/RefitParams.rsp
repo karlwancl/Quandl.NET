@@ -1,5 +1,5 @@
-Exception\QuandlError.cs
 Exception\QuandlException.cs
+Helper\RefitExtension.cs
 Model\DatasetData.cs
 Model\DatasetDataAndMetadata.cs
 Model\DatasetMetadata.cs

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Quandl.NET;
 using System.IO;
+using Quandl.NET.Exception;
 
 namespace Quandl.NET.Tests
 {
@@ -17,7 +18,7 @@ namespace Quandl.NET.Tests
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
 
-            //var result = client.Database.GetMetadataAsync("WIKI").Result;
+            var result = client.Database.GetMetadataAsync("ABCD").Result;
 
             //var result = client.Database.GetListAsync(new List<string> { "stock", "price" }, 5, 1).Result;
 
@@ -58,7 +59,7 @@ namespace Quandl.NET.Tests
             //}
 
             //var result = client.Database.GetMetadataAsync("ABCD").Result;
-            var result = client.Datatable.GetAsync("ABCD").Result;
+            //var result = client.Datatable.GetAsync("ABCD").Result;
 
             Console.WriteLine("Process completed!");
         }

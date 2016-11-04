@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    internal static class Constant
+    static class Constant
     {
         public const string HostUri = "https://www.quandl.com/api/v3";
     }
@@ -75,7 +75,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -98,7 +98,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -118,7 +118,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -145,7 +145,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -169,7 +169,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -189,7 +189,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
     }
@@ -293,10 +293,7 @@ namespace Quandl.NET
                     {
                         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                         if (!string.IsNullOrEmpty(content) && content.Contains("quandl_error"))
-                        {
-                            var quandlErrorAggregate = JsonConvert.DeserializeObject<QuandlErrorAggregate>(content);
-                            throw new QuandlException(quandlErrorAggregate.QuandlError);
-                        }
+                            throw JsonConvert.DeserializeObject<QuandlException>(content);
                     }
                 }
                 response.EnsureSuccessStatusCode();
@@ -335,7 +332,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -356,7 +353,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -380,7 +377,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -401,7 +398,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -434,7 +431,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -464,7 +461,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -492,7 +489,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
 
@@ -517,7 +514,7 @@ namespace Quandl.NET
             }
             catch (Refit.ApiException ex)
             {
-                throw new QuandlException(ex.GetContentAs<QuandlErrorAggregate>().QuandlError);
+                throw ex.ToQuandlException();
             }
         }
     }

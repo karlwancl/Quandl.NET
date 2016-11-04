@@ -39,8 +39,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exception\QuandlError.cs" />
     <Compile Include="Exception\QuandlException.cs" />
+    <Compile Include="Helper\RefitExtension.cs" />
     <Compile Include="Model\DatasetData.cs" />
     <Compile Include="Model\DatasetDataAndMetadata.cs" />
     <Compile Include="Model\DatasetMetadata.cs" />

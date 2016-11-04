@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET.Helper
 {
-    public static class EnumExtension
+    static class EnumExtension
     {
         public static string ToEnumMemberValue(this Enum value)
         {
