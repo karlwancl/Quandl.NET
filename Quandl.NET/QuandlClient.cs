@@ -293,7 +293,10 @@ namespace Quandl.NET
                     {
                         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                         if (!string.IsNullOrEmpty(content) && content.Contains("quandl_error"))
-                            throw JsonConvert.DeserializeObject<QuandlException>(content);
+                        {
+                            dynamic quandl_error_content = JsonConvert.DeserializeObject(content);
+                            throw new QuandlException(quandl_error_content.quandl_error.code.ToString(), quandl_error_content.quandl_error.message.ToString());
+                        }
                     }
                 }
                 response.EnsureSuccessStatusCode();

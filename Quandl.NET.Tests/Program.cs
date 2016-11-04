@@ -18,7 +18,7 @@ namespace Quandl.NET.Tests
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
 
-            var result = client.Database.GetMetadataAsync("ABCD").Result;
+            //var result = client.Database.GetMetadataAsync("ABCD").Result;
 
             //var result = client.Database.GetListAsync(new List<string> { "stock", "price" }, 5, 1).Result;
 
@@ -60,6 +60,8 @@ namespace Quandl.NET.Tests
 
             //var result = client.Database.GetMetadataAsync("ABCD").Result;
             //var result = client.Datatable.GetAsync("ABCD").Result;
+
+            var result = client.Datatable.GetAsync("INQ/EE", null, new List<string> { "dwfwefaeaf" }).Result;
 
             Console.WriteLine("Process completed!");
         }
