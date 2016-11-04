@@ -1,6 +1,11 @@
+DatabaseApi.cs
+DatasetApi.cs
+DatatableApi.cs
 Exception\QuandlException.cs
+Helper\CodeExtension.cs
 Helper\RefitExtension.cs
 Model\Column.cs
+Model\Enum\DatabaseCode.cs
 Model\DatasetData.cs
 Model\DatasetDataAndMetadata.cs
 Model\DatasetMetadata.cs
@@ -8,7 +13,8 @@ Model\Datatable.cs
 Model\DatatableMeta.cs
 Model\DatatableMetadata.cs
 Model\Enum\Collapse.cs
-Model\Enum\DatabaseCode.cs
+Model\Enum\DatasetCode.cs
+Model\Enum\DatatableCode.cs
 Model\Enum\DownloadType.cs
 Model\Meta.cs
 Model\Enum\Order.cs

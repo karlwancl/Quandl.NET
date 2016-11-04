@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Quandl.NET.Model.Enum
 {
     /// <summary>
-    /// Provides commonly used database code for easy access to API
+    /// Provides commonly used dataset code for easy access to API
     /// </summary>
-    public enum DatabaseCode
+    public enum DatasetCode
     {
     }
 }

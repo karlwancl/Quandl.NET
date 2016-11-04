@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Quandl.NET.Model.Enum;
 
 namespace Quandl.NET.Tests
 {
@@ -12,13 +13,15 @@ namespace Quandl.NET.Tests
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
 
+            var result = client.Datatable.GetMetadataCsvAsync(DatatableCode.WIKI_PRICES).Result;
+
             ////var result = client.Datatable.GetCsvAsync("WIKI", "PRICES").Result;
             //var result = client.Datatable.GetMetadataAsync("WIKI", "PRICES").Result;
-            //using (result)
-            //using (var fs = File.Create("test.csv"))
-            //{
-            //    result.CopyTo(fs);
-            //}
+            using (result)
+            using (var fs = File.Create("test.csv"))
+            {
+                result.CopyTo(fs);
+            }
 
             Console.WriteLine("Process completed!");
         }

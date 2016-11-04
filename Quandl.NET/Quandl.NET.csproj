@@ -39,9 +39,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseApi.cs" />
+    <Compile Include="DatasetApi.cs" />
+    <Compile Include="DatatableApi.cs" />
     <Compile Include="Exception\QuandlException.cs" />
+    <Compile Include="Helper\CodeExtension.cs" />
     <Compile Include="Helper\RefitExtension.cs" />
     <Compile Include="Model\Column.cs" />
+    <Compile Include="Model\Enum\DatabaseCode.cs" />
     <Compile Include="Model\DatasetData.cs" />
     <Compile Include="Model\DatasetDataAndMetadata.cs" />
     <Compile Include="Model\DatasetMetadata.cs" />
@@ -49,7 +54,8 @@
     <Compile Include="Model\DatatableMeta.cs" />
     <Compile Include="Model\DatatableMetadata.cs" />
     <Compile Include="Model\Enum\Collapse.cs" />
-    <Compile Include="Model\Enum\DatabaseCode.cs" />
+    <Compile Include="Model\Enum\DatasetCode.cs" />
+    <Compile Include="Model\Enum\DatatableCode.cs" />
     <Compile Include="Model\Enum\DownloadType.cs" />
     <Compile Include="Model\Meta.cs" />
     <Compile Include="Model\Enum\Order.cs" />
