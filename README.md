@@ -49,7 +49,7 @@ You can find the package through Nuget
 #### Datatable API Access
 
 ##### Get Entire Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-entire-datatable)
-	var result = await client.Datatable.GetAsync("INQ/EE");
+	var result = await client.Datatable.GetAsync("INQ", "EE");
 	
 ##### Query for Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#filter-rows-and-columns)
 	var rowFilter = new Dictionary<string, List<string>>();
@@ -57,7 +57,10 @@ You can find the package through Nuget
 	
 	var columnFilter = new List<string> { "isin", "company" };
 	
-	var result = await client.Datatable.GetAsync("INQ/EE", rowFilter, columnFilter);
+	var result = await client.Datatable.GetAsync("INQ", "EE", rowFilter, columnFilter);
+	
+##### Get Datatable Metadata (.NET Object / CSV)
+	var result = await client.Datatable.GetMetadataAsync("INQ", "EE");
 
 #### Dataset API Access
 

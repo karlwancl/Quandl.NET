@@ -1,17 +1,14 @@
 ﻿using Quandl.NET.Model.Enum;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quandl.NET.Model
 {
     public class DatasetDataAndMetadata
     {
         public DatasetDataAndMetadata(int? limit, Transform? transform, int? column_index, List<string> column_names, DateTime? start_date,
-            DateTime? end_date, string frequency, List<object[]> data, Collapse? collapse, Order? order, int id, string database_code, string dataset_code, 
-            string name, string description, DateTime? refreshed_at, DateTime? newest_available_date, DateTime? oldest_available_date, string type, 
+            DateTime? end_date, string frequency, List<object[]> data, Collapse? collapse, Order? order, int id, string database_code, string dataset_code,
+            string name, string description, DateTime? refreshed_at, DateTime? newest_available_date, DateTime? oldest_available_date, string type,
             bool? premium, int database_id)
         {
             Limit = limit;

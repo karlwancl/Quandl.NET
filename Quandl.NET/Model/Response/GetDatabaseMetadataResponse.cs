@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quandl.NET.Model.Response
+﻿namespace Quandl.NET.Model.Response
 {
     public class GetDatabaseMetadataResponse
     {
@@ -13,6 +7,6 @@ namespace Quandl.NET.Model.Response
             Database = database;
         }
 
-        public DatabaseMetadata Database { get; private set; } 
+        public DatabaseMetadata Database { get; private set; }
     }
 }

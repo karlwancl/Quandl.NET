@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Quandl.NET.Exception;
 using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
@@ -9,15 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    static class Constant
+    internal static class Constant
     {
         public const string HostUri = "https://www.quandl.com/api/v3";
     }
@@ -194,33 +189,37 @@ namespace Quandl.NET
         }
     }
 
-    public partial class DatatableApi : QuandlApiBase
+    public class DatatableApi : QuandlApiBase
     {
         private IDatatableApi _api;
+        private IDatatableApiNonRefit _apiNonRefit;
 
         public DatatableApi(string apiKey) : base(apiKey)
         {
-            //_api = RestService.For<IDatatableApi>(Constant.HostUri,
-            //    new RefitSettings { UrlParameterFormatter = new AdvancedUrlParameterFormatter() });
+            _api = RestService.For<IDatatableApi>(Constant.HostUri,
+                new RefitSettings { UrlParameterFormatter = new AdvancedUrlParameterFormatter() });
+
+            _apiNonRefit = new DatatableApiNonRefit();
         }
 
         /// <summary>
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?json#get-entire-datatable">Reference</a>
         /// </summary>
+        /// <param name="databaseCode">short code for database</param>
         /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
         /// <param name="nextCursorId">Next cursor id</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Get datatable response</returns>
-        public async Task<GetDatatableResponse> GetAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, 
+        public async Task<GetDatatableResponse> GetAsync(string databaseCode, string datatableCode, Dictionary<string, List<string>> rowFilter = null,
             List<string> columnFilter = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
         {
             var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
             string correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
 
-            using (var content = await GetContentAsync(datatableCode, ReturnFormat.Json, correctedRowFilter, correctedColumnFilter, 
+            using (var content = await _apiNonRefit.GetAsync(databaseCode, datatableCode, ReturnFormat.Json, correctedRowFilter, correctedColumnFilter,
                 null, nextCursorId, _apiKey, token).ConfigureAwait(false))
             {
                 var json = await content.ReadAsStringAsync().ConfigureAwait(false);
@@ -232,6 +231,7 @@ namespace Quandl.NET
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?csv#get-entire-datatable">Reference</a>
         /// </summary>
+        /// <param name="databaseCode">short code for database</param>
         /// <param name="datatableCode">short code for datatable</param>
         /// <param name="rowFilter">Criteria to filter row</param>
         /// <param name="columnFilter">Criteria to filter column</param>
@@ -239,68 +239,52 @@ namespace Quandl.NET
         /// <param name="nextCursorId">Next cursor id</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(string datatableCode, Dictionary<string, List<string>> rowFilter = null, 
+        public async Task<Stream> GetCsvAsync(string databaseCode, string datatableCode, Dictionary<string, List<string>> rowFilter = null,
             List<string> columnFilter = null, bool? fullResult = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
         {
             var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
             var correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
             var correctedNextCursorId = fullResult == null ? nextCursorId : null;
 
-            var content = await GetContentAsync(datatableCode, ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter,
+            var content = await _apiNonRefit.GetAsync(databaseCode, datatableCode, ReturnFormat.Csv, correctedRowFilter, correctedColumnFilter,
                 fullResult, correctedNextCursorId, _apiKey, token).ConfigureAwait(false);
 
             return await content.ReadAsStreamAsync().ConfigureAwait(false);
         }
 
-        private async Task<HttpContent> GetContentAsync(string datatable_code, ReturnFormat format, Dictionary<string, string> row_filter, string column_filter,
-            bool? full_result, int? next_cursor_id, string api_key, CancellationToken token = default(CancellationToken))
+        /// <summary>
+        /// This API call returns datatable's metadata
+        /// </summary>
+        /// <param name="databaseCode">short code for database</param>
+        /// <param name="datatableCode">short code for datatable</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Get datatable metadata response</returns>
+        public async Task<GetDatatableMetadataResponse> GetMetadataAsync(string databaseCode, string datatableCode, CancellationToken token = default(CancellationToken))
         {
-            using (var client = new HttpClient())
+            using (var content = await _api.GetMetadataAsync(databaseCode, datatableCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
             {
-                client.DefaultRequestHeaders.Clear();
-                var baseAddress = $"{Constant.HostUri}/datatables/{datatable_code}.{format.ToEnumMemberValue()}";
+                var json = await content.ReadAsStringAsync().ConfigureAwait(false);
+                return JsonConvert.DeserializeObject<GetDatatableMetadataResponse>(json);
+            }
+        }
 
-                var queryBuilder = new StringBuilder();
-
-                if (column_filter != null)
-                    queryBuilder.Append($"qopts.columns={UrlEncoder.Default.Encode(column_filter)}&");
-
-                if (row_filter != null)
-                {
-                    foreach (var row in row_filter)
-                    {
-                        queryBuilder.Append($"{UrlEncoder.Default.Encode(row.Key)}={UrlEncoder.Default.Encode(row.Value)}&");
-                    }
-                }
-
-                if (full_result.HasValue)
-                    queryBuilder.Append($"qopts.export={full_result.Value}&");
-
-                if (next_cursor_id.HasValue)
-                    queryBuilder.Append($"qopts.cursor_id={next_cursor_id.Value}&");
-
-                queryBuilder.Append($"api_key={api_key}");
-
-                var response = await client.GetAsync($"{baseAddress}?{queryBuilder}", token).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    {
-                        // Maybe a problem of wrong datatable_code in the uri, let's assume it is a wrong datatable_code if it occurs
-                        throw new QuandlException("QECx02", "You have submitted an incorrect Quandl code. Please check your Quandl codes and try again.");
-                    }
-                    else if (response.Content != null)
-                    {
-                        var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        if (!string.IsNullOrEmpty(content) && content.Contains("quandl_error"))
-                        {
-                            dynamic quandl_error_content = JsonConvert.DeserializeObject(content);
-                            throw new QuandlException(quandl_error_content.quandl_error.code.ToString(), quandl_error_content.quandl_error.message.ToString());
-                        }
-                    }
-                }
-                response.EnsureSuccessStatusCode();
-                return response.Content;
+        /// <summary>
+        /// This API call returns datatable's metadata
+        /// </summary>
+        /// <param name="databaseCode">short code for database</param>
+        /// <param name="datatableCode">short code for datatable</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Stream of csv file (.csv)</returns>
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datatableCode, CancellationToken token = default(CancellationToken))
+        {
+            try
+            {
+                var content = await _api.GetMetadataAsync(databaseCode, datatableCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
+                return await content.ReadAsStreamAsync().ConfigureAwait(false);
+            }
+            catch (Refit.ApiException ex)
+            {
+                throw ex.ToQuandlException();
             }
         }
     }
@@ -321,13 +305,22 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
+        /// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
+        /// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
+        /// <param name="endDate">Retrieve data rows up to and including the specified end date.</param>
+        /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
+        /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
+        /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Get dataset response</returns>
-        public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
+        public async Task<GetDatasetResponse> GetAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
+                using (var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, endDate,
+                    order, collapse, transform, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
@@ -345,13 +338,22 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
+        /// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
+        /// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
+        /// <param name="endDate">Retrieve data rows up to and including the specified end date.</param>
+        /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
+        /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
+        /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
+        public async Task<Stream> GetCsvAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
+                var content = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, endDate,
+                    order, collapse, transform, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -366,13 +368,22 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
-        /// <<param name="token">Cancellation token</param>
+        /// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
+        /// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
+        /// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
+        /// <param name="endDate">Retrieve data rows up to and including the specified end date.</param>
+        /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
+        /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
+        /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
+        /// <param name="token">Cancellation token</param>
         /// <returns>Get dataset metadata response</returns>
-        public async Task<GetDatasetMetadataResponse> GetMetadataAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
+        public async Task<GetDatasetMetadataResponse> GetMetadataAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, _apiKey, token).ConfigureAwait(false))
+                using (var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex,
+                    startDate, endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
                     return JsonConvert.DeserializeObject<GetDatasetMetadataResponse>(json);
@@ -390,13 +401,22 @@ namespace Quandl.NET
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datasetCode">short code for dataset</param>
+        /// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
+        /// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
+        /// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
+        /// <param name="endDate">Retrieve data rows up to and including the specified end date.</param>
+        /// <param name="order">Return data in ascending or descending order of date. Default is “desc”.</param>
+        /// <param name="collapse">Change the sampling frequency of the returned data. Default is “none” i.e. data is returned in its original granularity.</param>
+        /// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is “none”. Calculation options are described below.</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode, CancellationToken token = default(CancellationToken))
+        public async Task<Stream> GetMetadataCsvAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
+            DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
         {
             try
             {
-                var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, _apiKey, token).ConfigureAwait(false);
+                var content = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex,
+                    startDate, endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }
             catch (Refit.ApiException ex)
@@ -425,7 +445,7 @@ namespace Quandl.NET
         {
             try
             {
-                using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate, 
+                using (var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json, limit, columnIndex, startDate,
                     endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false))
                 {
                     var json = await content.ReadAsStringAsync().ConfigureAwait(false);
@@ -458,7 +478,7 @@ namespace Quandl.NET
         {
             try
             {
-                var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate, 
+                var content = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv, limit, columnIndex, startDate,
                     endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false);
                 return await content.ReadAsStreamAsync().ConfigureAwait(false);
             }

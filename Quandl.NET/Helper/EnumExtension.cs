@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quandl.NET.Helper
 {
-    static class EnumExtension
+    internal static class EnumExtension
     {
         public static string ToEnumMemberValue(this Enum value)
         {

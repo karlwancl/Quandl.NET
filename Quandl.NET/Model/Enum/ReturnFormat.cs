@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Quandl.NET.Model.Enum
 {
@@ -12,8 +6,10 @@ namespace Quandl.NET.Model.Enum
     {
         [EnumMember(Value = "json")]
         Json,
+
         [EnumMember(Value = "xml")]
         Xml,
+
         [EnumMember(Value = "csv")]
         Csv
     }

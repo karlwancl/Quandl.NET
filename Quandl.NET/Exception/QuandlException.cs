@@ -1,12 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quandl.NET.Exception
+﻿namespace Quandl.NET.Exception
 {
     public class QuandlException : System.Exception
     {

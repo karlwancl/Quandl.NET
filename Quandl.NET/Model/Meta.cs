@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quandl.NET.Model
+﻿namespace Quandl.NET.Model
 {
     public class Meta
     {
@@ -28,7 +22,7 @@ namespace Quandl.NET.Model
 
         public int CurrentPage { get; private set; }
 
-        public int? PrevPage { get;private  set; }
+        public int? PrevPage { get; private set; }
 
         public int TotalPages { get; private set; }
 
