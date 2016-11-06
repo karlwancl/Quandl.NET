@@ -1,17 +1,17 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.3/",
-    "signature": "b260d4c633fecf85e61b158ca1891d545da20e1d"
+    "signature": "19dace88351d2ea7c9fa17c4a897794f7f99719a"
   },
   "compilationOptions": {},
   "targets": {
     ".NETStandard,Version=v1.3": {},
     ".NETStandard,Version=v1.3/": {
-      "Quandl.NET/1.0.4": {
+      "Quandl.NET/1.0.5": {
         "dependencies": {
           "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
           "NETStandard.Library": "1.6.0",
-          "refit": "3.0.1",
+          "RestEase": "1.2.3",
           "System.Reflection.TypeExtensions": "4.1.0",
           "System.Runtime.Serialization.Primitives": "4.1.1"
         },
@@ -177,15 +177,16 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
-      "refit/3.0.1": {
+      "RestEase/1.2.3": {
         "dependencies": {
           "Microsoft.AspNetCore.WebUtilities": "1.0.0",
           "NETStandard.Library": "1.6.0",
           "Newtonsoft.Json": "9.0.1",
-          "System.Text.Encodings.Web": "4.0.0"
+          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0"
         },
         "runtime": {
-          "lib/netstandard1.3/Refit.dll": {}
+          "lib/netstandard1.3/RestEase.dll": {}
         }
       },
       "runtime.native.System/4.0.0": {
@@ -732,7 +733,7 @@
     }
   },
   "libraries": {
-    "Quandl.NET/1.0.4": {
+    "Quandl.NET/1.0.5": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -797,10 +798,10 @@
       "serviceable": true,
       "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw=="
     },
-    "refit/3.0.1": {
+    "RestEase/1.2.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ubecPdTN6TByXe+EXB2XZXLpkDUEVc8bd/WFJePRx6QxJXQyLvbYncz2d1SU6fYfJGllA9HYPXJQ8HD7mKq0Lg=="
+      "sha512": "sha512-Pns7BQcRWvs2hC8Ke7zdZZtqOQ5Y9/hzT4NVLWfxFzHhmjFdeBRwZsoc7ls8ftl3Df3/HeuGdVRc+5+UCz9WFA=="
     },
     "runtime.native.System/4.0.0": {
       "type": "package",

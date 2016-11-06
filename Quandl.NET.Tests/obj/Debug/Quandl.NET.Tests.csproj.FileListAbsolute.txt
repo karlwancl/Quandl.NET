@@ -46,7 +46,6 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.Win32.Primitives.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Newtonsoft.Json.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.dll
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Refit.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.AppContext.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Buffers.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Console.dll
@@ -66,11 +65,12 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Security.Cryptography.Primitives.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Security.Cryptography.X509Certificates.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encodings.Web.dll
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.pdb
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.AspNetCore.WebUtilities.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.Extensions.Primitives.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Newtonsoft.Json.xml
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Refit.pdb
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encodings.Web.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csprojResolveAssemblyReference.cache
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\RestEase.dll
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\RestEase.xml
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.pdb

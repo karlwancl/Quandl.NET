@@ -5,6 +5,6 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.pdb
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\bin\Debug\Quandl.NET.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\bin\Debug\Quandl.NET.pdb
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.csprojResolveAssemblyReference.cache
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.dll
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.pdb
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET\obj\Debug\Quandl.NET.csprojResolveAssemblyReference.cache

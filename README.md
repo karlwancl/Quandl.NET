@@ -1,5 +1,5 @@
 # Quandl.NET (Beta)
-Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android, Xamarin.Mac & Universal Windows Platform.
+Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 1.3, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
 
 ### Features
 * Allows access to financial and economic data through Quandl v3 API
@@ -7,9 +7,8 @@ Quandl is a marketplace for financial and economic data. All data on Quandl can 
 ### Supported Platforms
 * .NET Core 1.0
 * .NET Framework 4.6 or above
-* Xamarin.iOS 64-bit (Unified API)
+* Xamarin.iOS
 * Xamarin.Android
-* Xamarin.Mac
 * Universal Windows Platform
 
 ### How To Install
@@ -71,7 +70,7 @@ You can find the package through Nuget
 	var result = await client.Dataset.GetMetadataAsync("WIKI", "FB");
 	
 ##### Query For Dataset (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-data-and-metadata)
-	var result = await client.Dataset.GetDataAndMetadataAsync("WIKI", "FB", columnIndex: 4, startDate: new Date(2014, 1, 1), endDate: new Date(2014, 12, 31), collapse: Model.Enum.Collapse.Monthly, transform: Model.Enum.Transform.Rdiff);
+	var result = await client.Dataset.GetDataAndMetadataAsync("WIKI", "FB", columnIndex: 4, startDate: new DateTime(2014, 1, 1), endDate: new DateTime(2014, 12, 31), collapse: Model.Enum.Collapse.Monthly, transform: Model.Enum.Transform.Rdiff);
 	
 ##### Get Dataset by Query (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#dataset-search)
 	var query = new List<string> { "crude", "oil" };

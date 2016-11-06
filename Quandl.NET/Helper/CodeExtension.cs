@@ -1,13 +1,9 @@
 ﻿using Quandl.NET.Model.Enum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quandl.NET.Helper
 {
-    static class CodeExtension
+    internal static class CodeExtension
     {
         public static Tuple<string, string> ToPair(this DatatableCode code)
         {

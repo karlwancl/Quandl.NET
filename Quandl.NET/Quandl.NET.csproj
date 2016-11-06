@@ -43,8 +43,9 @@
     <Compile Include="DatasetApi.cs" />
     <Compile Include="DatatableApi.cs" />
     <Compile Include="Exception\QuandlException.cs" />
+    <Compile Include="Helper\AdvancedRequestQueryParamSerializer.cs" />
     <Compile Include="Helper\CodeExtension.cs" />
-    <Compile Include="Helper\RefitExtension.cs" />
+    <Compile Include="Helper\RestEaseExtension.cs" />
     <Compile Include="Model\Column.cs" />
     <Compile Include="Model\Enum\DatabaseCode.cs" />
     <Compile Include="Model\DatasetData.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="Model\Response\GetDatabaseListResponse.cs" />
     <Compile Include="Helper\EnumExtension.cs" />
     <Compile Include="Helper\IQuandlApi.cs" />
-    <Compile Include="Helper\AdvancedUrlParameterFormatter.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuandlClient.cs" />

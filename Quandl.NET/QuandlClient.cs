@@ -1,16 +1,4 @@
-﻿using Newtonsoft.Json;
-using Quandl.NET.Helper;
-using Quandl.NET.Model.Enum;
-using Quandl.NET.Model.Response;
-using Refit;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Quandl.NET
+﻿namespace Quandl.NET
 {
     public class QuandlClient
     {

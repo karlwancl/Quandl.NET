@@ -219,19 +219,20 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
-      "refit/3.0.1": {
+      "RestEase/1.2.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.WebUtilities": "1.0.0",
           "NETStandard.Library": "1.6.0",
           "Newtonsoft.Json": "9.0.1",
-          "System.Text.Encodings.Web": "4.0.0"
+          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0"
         },
         "compile": {
-          "lib/netstandard1.3/Refit.dll": {}
+          "lib/netstandard1.3/RestEase.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/Refit.dll": {}
+          "lib/netstandard1.3/RestEase.dll": {}
         }
       },
       "runtime.native.System/4.0.0": {
@@ -652,7 +653,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.1/_._": {}
+          "ref/netstandard1.1/System.Reflection.Emit.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.dll": {}
@@ -666,7 +667,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -1335,39 +1336,19 @@
         "tools/install.ps1"
       ]
     },
-    "refit/3.0.1": {
-      "sha512": "ubecPdTN6TByXe+EXB2XZXLpkDUEVc8bd/WFJePRx6QxJXQyLvbYncz2d1SU6fYfJGllA9HYPXJQ8HD7mKq0Lg==",
+    "RestEase/1.2.3": {
+      "sha512": "Pns7BQcRWvs2hC8Ke7zdZZtqOQ5Y9/hzT4NVLWfxFzHhmjFdeBRwZsoc7ls8ftl3Df3/HeuGdVRc+5+UCz9WFA==",
       "type": "package",
-      "path": "refit/3.0.1",
+      "path": "RestEase/1.2.3",
       "files": [
-        "build/netstandard1.1/refit.targets",
-        "build/netstandard1.3/refit.targets",
-        "lib/Net45/Refit.dll",
-        "lib/Net45/Refit.pdb",
-        "lib/NetCore45/Refit.dll",
-        "lib/NetCore45/Refit.pdb",
-        "lib/NetCore45/Refit.pri",
-        "lib/Portable-Win81+Wpa81/Refit.dll",
-        "lib/Portable-Win81+Wpa81/Refit.pdb",
-        "lib/Portable-Win81+Wpa81/Refit.pri",
-        "lib/net46/Refit.dll",
-        "lib/net46/Refit.pdb",
-        "lib/netcore50/Refit.dll",
-        "lib/netcore50/Refit.pdb",
-        "lib/netstandard1.1/Refit.dll",
-        "lib/netstandard1.1/Refit.pdb",
-        "lib/netstandard1.3/Refit.dll",
-        "lib/netstandard1.3/Refit.pdb",
-        "refit.3.0.1.nupkg.sha512",
-        "refit.nuspec",
-        "tools/GeneratedInterfaceStubTemplate.mustache",
-        "tools/InterfaceStubGenerator.exe",
-        "tools/Microsoft.CodeAnalysis.CSharp.dll",
-        "tools/Microsoft.CodeAnalysis.dll",
-        "tools/Mono.Options.dll",
-        "tools/Nustache.Core.dll",
-        "tools/System.Collections.Immutable.dll",
-        "tools/System.Reflection.Metadata.dll"
+        "RestEase.1.2.3.nupkg.sha512",
+        "RestEase.nuspec",
+        "lib/net40/RestEase.dll",
+        "lib/net40/RestEase.xml",
+        "lib/net45/RestEase.dll",
+        "lib/net45/RestEase.xml",
+        "lib/netstandard1.3/RestEase.dll",
+        "lib/netstandard1.3/RestEase.xml"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -4246,9 +4227,9 @@
     "": [
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.1",
       "NETStandard.Library >= 1.6.0",
+      "RestEase >= 1.2.3",
       "System.Reflection.TypeExtensions >= 4.1.0",
-      "System.Runtime.Serialization.Primitives >= 4.1.1",
-      "refit >= 3.0.1"
+      "System.Runtime.Serialization.Primitives >= 4.1.1"
     ],
     ".NETStandard,Version=v1.3": []
   },

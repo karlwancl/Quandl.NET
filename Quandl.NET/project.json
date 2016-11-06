@@ -1,15 +1,25 @@
 ﻿{
   "name": "Quandl.NET",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.3",
   "copyright": "Copyright (c) 2016 SalmonThinLion",
   "title": "Quandl.NET",
-  "authors": [ "SalmonThinLion" ],
+  "authors": [
+    "SalmonThinLion"
+  ],
   "packOptions": {
     "summary": "A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.3",
-    "tags": [ "Quandl", "Finance", "Economic", "Stock", "API" ],
-    "owners": [ "SalmonThinLion" ],
-    "releaseNotes": "[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
+    "tags": [
+      "Quandl",
+      "Finance",
+      "Economic",
+      "Stock",
+      "API"
+    ],
+    "owners": [
+      "SalmonThinLion"
+    ],
+    "releaseNotes": "[6/11/2016] BIG UPDATE: REST API Library is migrated to RestEase to fix the \"Not Refit Interface\" issue\n[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
     "projectUrl": "https://github.com/salmonthinlion/Quandl.NET",
     "licenseUrl": "https://github.com/salmonthinlion/Quandl.NET/blob/master/LICENSE"
   },
@@ -17,7 +27,7 @@
   "dependencies": {
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.0",
-    "refit": "3.0.1",
+    "RestEase": "1.2.3",
     "System.Reflection.TypeExtensions": "4.1.0",
     "System.Runtime.Serialization.Primitives": "4.1.1"
   },
