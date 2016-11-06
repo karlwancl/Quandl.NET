@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETPortable,Version=v4.0,Profile=Profile328/",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETPortable,Version=v4.0,Profile=Profile328": {},
+    ".NETPortable,Version=v4.0,Profile=Profile328/": {
+      "Flurl/2.2.1": {
+        "dependencies": {
+          "mscorlib": "2.0.5.0",
+          "System": "2.0.5.0",
+          "System.Core": "2.0.5.0"
+        },
+        "runtime": {
+          "Flurl.dll": {}
+        }
+      },
+      "mscorlib/2.0.5.0": {},
+      "System/2.0.5.0": {},
+      "System.Core/2.0.5.0": {}
+    }
+  },
+  "libraries": {
+    "Flurl/2.2.1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "mscorlib/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Core/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -19,19 +19,20 @@
     "owners": [
       "SalmonThinLion"
     ],
-    "releaseNotes": "[6/11/2016] BIG UPDATE: REST API Library is migrated to RestEase to fix the \"Not Refit Interface\" issue\n[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
+    "releaseNotes": "[7/11/2016] BIG UPDATE: REST API part is migrated to Flurl to fix the \"Not refit interface\" exception, the nuget package should be functional again\n[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
     "projectUrl": "https://github.com/salmonthinlion/Quandl.NET",
     "licenseUrl": "https://github.com/salmonthinlion/Quandl.NET/blob/master/LICENSE"
   },
   "supports": {},
   "dependencies": {
+    "Flurl": "2.2.1",
+    "Flurl.Http": "1.0.3",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.0",
-    "RestEase": "1.2.3",
     "System.Reflection.TypeExtensions": "4.1.0",
     "System.Runtime.Serialization.Primitives": "4.1.1"
   },
   "frameworks": {
-    "netstandard1.3": {}
+    "netstandard1.4": {}
   }
 }

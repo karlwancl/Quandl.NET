@@ -71,6 +71,11 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encodings.Web.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csprojResolveAssemblyReference.cache
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\RestEase.dll
-\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\RestEase.xml
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.dll
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.dll
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encoding.CodePages.dll
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.pdb
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.xml
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.pdb
+\\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.pdb

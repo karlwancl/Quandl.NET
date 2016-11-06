@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Flurl.Http;
 using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
-using RestEase;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,16 +11,10 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    public class DatatableApi : QuandlApiBase
+    public partial class DatatableApi : QuandlApiBase
     {
-        private IDatatableApi _api;
-
         public DatatableApi(string apiKey) : base(apiKey)
         {
-            _api = new RestClient(Constant.HostUri)
-            {
-                RequestQueryParamSerializer = new AdvancedRequestQueryParamSerializer()
-            }.For<IDatatableApi>();
         }
 
         /// <summary>
@@ -39,17 +33,18 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
-                string correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
-
-                using (var response = await _api.GetAsync(databaseCode, datatableCode, ReturnFormat.Json.ToEnumMemberValue(), correctedRowFilter, correctedColumnFilter,
-                    null, nextCursorId, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatatableResponse>(json);
-                }
+                var massagedRowFilters = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
+                string massagedColumnFilters = columnFilter != null ? string.Join(",", columnFilter) : null;
+                return await $"{Constant.HostUri}/datatables/{databaseCode}/{datatableCode}.json"
+                    .SetQueryParamForEach(massagedRowFilters)
+                    .SetQueryParam("qopts.columns", massagedColumnFilters)
+                    .SetQueryParam("qopts.cursor_id", nextCursorId)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatatableResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -86,16 +81,21 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedRowFilter = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
-                var correctedColumnFilter = columnFilter != null ? string.Join(",", columnFilter) : null;
-                var correctedNextCursorId = fullResult == null ? nextCursorId : null;
+                var massagedRowFilters = rowFilter?.ToDictionary(kvp => kvp.Key, kvp => string.Join(",", kvp.Value));
+                string massagedColumnFilters = columnFilter != null ? string.Join(",", columnFilter) : null;
+                var massagedNextCursorId = fullResult == null ? nextCursorId : null;
 
-                var response = await _api.GetAsync(databaseCode, datatableCode, ReturnFormat.Csv.ToEnumMemberValue(), correctedRowFilter, correctedColumnFilter,
-                    fullResult, correctedNextCursorId, _apiKey, token).ConfigureAwait(false);
-
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/datatables/{databaseCode}/{datatableCode}.csv"
+                    .SetQueryParamForEach(massagedRowFilters)
+                    .SetQueryParam("qopts.columns", massagedColumnFilters)
+                    .SetQueryParam("qopts.export", fullResult)
+                    .SetQueryParam("qopts.cursor_id", massagedNextCursorId)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -127,13 +127,13 @@ namespace Quandl.NET
         {
             try
             {
-                using (var response = await _api.GetMetadataAsync(databaseCode, datatableCode, ReturnFormat.Json.ToEnumMemberValue(), _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatatableMetadataResponse>(json);
-                }
+                return await $"{Constant.HostUri}/datatables/{databaseCode}/{datatableCode}/metadata.json"
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatatableMetadataResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -159,10 +159,13 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetMetadataAsync(databaseCode, datatableCode, ReturnFormat.Csv.ToEnumMemberValue(), _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/datatables/{databaseCode}/{datatableCode}/metadata.csv"
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }

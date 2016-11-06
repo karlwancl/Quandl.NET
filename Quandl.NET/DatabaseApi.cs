@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Flurl.Http;
 using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
-using RestEase;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -10,16 +10,10 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    public class DatabaseApi : QuandlApiBase
+    public partial class DatabaseApi : QuandlApiBase
     {
-        private IDatabaseApi _api;
-
         public DatabaseApi(string apiKey) : base(apiKey)
         {
-            _api = new RestClient(Constant.HostUri)
-            {
-                RequestQueryParamSerializer = new AdvancedRequestQueryParamSerializer()
-            }.For<IDatabaseApi>();
         }
 
         /// <summary>
@@ -34,10 +28,14 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetAsync(databaseCode, downloadType, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/databases/{databaseCode}/data"
+                    .SetQueryParam("download_type", downloadType.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -65,13 +63,13 @@ namespace Quandl.NET
         {
             try
             {
-                using (var response = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Json.ToEnumMemberValue(), _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatabaseMetadataResponse>(json);
-                }
+                return await $"{Constant.HostUri}/databases/{databaseCode}.json"
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatabaseMetadataResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -98,10 +96,13 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetMetadataAsync(databaseCode, ReturnFormat.Csv.ToEnumMemberValue(), _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/databases/{databaseCode}.csv"
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -130,15 +131,17 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedQuery = query != null ? string.Join("+", query) : null;
-
-                using (var response = await _api.GetListAsync(ReturnFormat.Json.ToEnumMemberValue(), correctedQuery, perPage, page, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatabaseListResponse>(json);
-                }
+                var massagedQuery = query != null ? string.Join("+", query) : null;
+                return await $"{Constant.HostUri}/databases.json"
+                    .SetQueryParam("query", massagedQuery)
+                    .SetQueryParam("per_page", perPage)
+                    .SetQueryParam("page", page)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatabaseListResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -157,12 +160,17 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedQuery = query != null ? string.Join("+", query) : null;
-
-                var response = await _api.GetListAsync(ReturnFormat.Csv.ToEnumMemberValue(), correctedQuery, perPage, page, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var massagedQuery = query != null ? string.Join("+", query) : null;
+                return await $"{Constant.HostUri}/databases.csv"
+                    .SetQueryParam("query", massagedQuery)
+                    .SetQueryParam("per_page", perPage)
+                    .SetQueryParam("page", page)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -179,10 +187,13 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetDatasetListAsync(databaseCode, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/databases/{databaseCode}/codes.csv"
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }

@@ -2,22 +2,35 @@
   "locked": false,
   "version": 2,
   "targets": {
-    ".NETStandard,Version=v1.3": {
-      "Microsoft.AspNetCore.WebUtilities/1.0.0": {
+    ".NETStandard,Version=v1.4": {
+      "Flurl/2.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "1.0.0",
-          "System.Buffers": "4.0.0",
-          "System.Collections": "4.0.11",
-          "System.IO": "4.1.0",
-          "System.IO.FileSystem": "4.0.1",
-          "System.Text.Encodings.Web": "4.0.0"
+          "System.Globalization": "4.0.11",
+          "System.Linq": "4.1.0",
+          "System.Reflection.TypeExtensions": "4.1.0"
         },
         "compile": {
-          "lib/netstandard1.3/Microsoft.AspNetCore.WebUtilities.dll": {}
+          "lib/netstandard1.4/Flurl.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/Microsoft.AspNetCore.WebUtilities.dll": {}
+          "lib/netstandard1.4/Flurl.dll": {}
+        }
+      },
+      "Flurl.Http/1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Flurl": "2.2.1",
+          "Newtonsoft.Json": "9.0.1",
+          "System.IO.FileSystem": "4.0.1",
+          "System.Net.Http": "4.1.0",
+          "System.Text.Encoding.CodePages": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.4/Flurl.Http.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/Flurl.Http.dll": {}
         }
       },
       "Microsoft.CSharp/4.0.1": {
@@ -45,19 +58,6 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.CSharp.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Primitives/1.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0"
-        },
-        "compile": {
-          "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
       "Microsoft.NETCore.Jit/1.0.2": {
@@ -219,22 +219,6 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
-      "RestEase/1.2.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.WebUtilities": "1.0.0",
-          "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1",
-          "System.Reflection.Emit": "4.0.1",
-          "System.Reflection.TypeExtensions": "4.1.0"
-        },
-        "compile": {
-          "lib/netstandard1.3/RestEase.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/RestEase.dll": {}
-        }
-      },
       "runtime.native.System/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -293,7 +277,7 @@
           "System.Threading": "4.0.11"
         },
         "compile": {
-          "lib/netstandard1.1/System.Buffers.dll": {}
+          "lib/netstandard1.1/_._": {}
         },
         "runtime": {
           "lib/netstandard1.1/System.Buffers.dll": {}
@@ -653,7 +637,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.1/System.Reflection.Emit.dll": {}
+          "ref/netstandard1.1/_._": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.dll": {}
@@ -667,7 +651,7 @@
           "System.Runtime": "4.1.0"
         },
         "compile": {
-          "ref/netstandard1.0/System.Reflection.Emit.ILGeneration.dll": {}
+          "ref/netstandard1.0/_._": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.ILGeneration.dll": {}
@@ -826,7 +810,7 @@
           "System.Security.Cryptography.Primitives": "4.0.0"
         },
         "compile": {
-          "ref/netstandard1.3/System.Security.Cryptography.Algorithms.dll": {}
+          "ref/netstandard1.4/System.Security.Cryptography.Algorithms.dll": {}
         }
       },
       "System.Security.Cryptography.Encoding/4.0.0": {
@@ -886,7 +870,7 @@
           "System.Security.Cryptography.Encoding": "4.0.0"
         },
         "compile": {
-          "ref/netstandard1.3/System.Security.Cryptography.X509Certificates.dll": {}
+          "ref/netstandard1.4/System.Security.Cryptography.X509Certificates.dll": {}
         }
       },
       "System.Text.Encoding/4.0.11": {
@@ -900,6 +884,36 @@
           "ref/netstandard1.3/System.Text.Encoding.dll": {}
         }
       },
+      "System.Text.Encoding.CodePages/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.0.1",
+          "System.Collections": "4.0.11",
+          "System.Globalization": "4.0.11",
+          "System.IO": "4.1.0",
+          "System.Reflection": "4.1.0",
+          "System.Resources.ResourceManager": "4.0.1",
+          "System.Runtime": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Runtime.Handles": "4.0.1",
+          "System.Runtime.InteropServices": "4.1.0",
+          "System.Text.Encoding": "4.0.11",
+          "System.Threading": "4.0.11"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Text.Encoding.CodePages.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Text.Encoding.Extensions/4.0.11": {
         "type": "package",
         "dependencies": {
@@ -910,24 +924,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Text.Encoding.Extensions.dll": {}
-        }
-      },
-      "System.Text.Encodings.Web/4.0.0": {
-        "type": "package",
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.IO": "4.1.0",
-          "System.Reflection": "4.1.0",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Threading": "4.0.11"
-        },
-        "compile": {
-          "lib/netstandard1.0/System.Text.Encodings.Web.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/System.Text.Encodings.Web.dll": {}
         }
       },
       "System.Text.RegularExpressions/4.1.0": {
@@ -1040,17 +1036,73 @@
     }
   },
   "libraries": {
-    "Microsoft.AspNetCore.WebUtilities/1.0.0": {
-      "sha512": "D0licSnS1JgqQ/gYlN41wXbeYG3dFIdjY781YzMHZ5gBB7kczacshW+H6plZkXRr/cCnAJWGa31o1R8c5GEy/A==",
+    "Flurl/2.2.1": {
+      "sha512": "xon6xHgSO/eA8/uoyOmYgiWWF2wtOWw3TjcDmDHH/HgTxFibsdQvDxxY93rHXhelGyD65ykrSJstgOjiIwR9jQ==",
       "type": "package",
-      "path": "Microsoft.AspNetCore.WebUtilities/1.0.0",
+      "path": "Flurl/2.2.1",
       "files": [
-        "Microsoft.AspNetCore.WebUtilities.1.0.0.nupkg.sha512",
-        "Microsoft.AspNetCore.WebUtilities.nuspec",
-        "lib/net451/Microsoft.AspNetCore.WebUtilities.dll",
-        "lib/net451/Microsoft.AspNetCore.WebUtilities.xml",
-        "lib/netstandard1.3/Microsoft.AspNetCore.WebUtilities.dll",
-        "lib/netstandard1.3/Microsoft.AspNetCore.WebUtilities.xml"
+        "Flurl.2.2.1.nupkg.sha512",
+        "Flurl.nuspec",
+        "lib/monoandroid/Flurl.deps.json",
+        "lib/monoandroid/Flurl.dll",
+        "lib/monoandroid/Flurl.pdb",
+        "lib/monoandroid/Flurl.xml",
+        "lib/monotouch/Flurl.deps.json",
+        "lib/monotouch/Flurl.dll",
+        "lib/monotouch/Flurl.pdb",
+        "lib/monotouch/Flurl.xml",
+        "lib/netstandard1.4/Flurl.deps.json",
+        "lib/netstandard1.4/Flurl.dll",
+        "lib/netstandard1.4/Flurl.pdb",
+        "lib/netstandard1.4/Flurl.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/Flurl.deps.json",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/Flurl.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/Flurl.pdb",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/Flurl.xml",
+        "lib/xamarin.ios/Flurl.deps.json",
+        "lib/xamarin.ios/Flurl.dll",
+        "lib/xamarin.ios/Flurl.pdb",
+        "lib/xamarin.ios/Flurl.xml",
+        "lib/xamarin.mac/Flurl.deps.json",
+        "lib/xamarin.mac/Flurl.dll",
+        "lib/xamarin.mac/Flurl.pdb",
+        "lib/xamarin.mac/Flurl.xml"
+      ]
+    },
+    "Flurl.Http/1.0.3": {
+      "sha512": "D2lSe6mb9Hx/MWOGtc/Xy8p3RxR2Kj5lW3YuI4vY54/xOX+J1/uLudD6MhiG3ahPBJfrjizuAi6gGP/Qda3sWg==",
+      "type": "package",
+      "path": "Flurl.Http/1.0.3",
+      "files": [
+        "Flurl.Http.1.0.3.nupkg.sha512",
+        "Flurl.Http.nuspec",
+        "lib/monoandroid/Flurl.Http.deps.json",
+        "lib/monoandroid/Flurl.Http.dll",
+        "lib/monoandroid/Flurl.Http.pdb",
+        "lib/monoandroid/Flurl.Http.xml",
+        "lib/monotouch/Flurl.Http.deps.json",
+        "lib/monotouch/Flurl.Http.dll",
+        "lib/monotouch/Flurl.Http.pdb",
+        "lib/monotouch/Flurl.Http.xml",
+        "lib/net45/Flurl.Http.dll",
+        "lib/net45/Flurl.Http.pdb",
+        "lib/net45/Flurl.Http.xml",
+        "lib/netstandard1.4/Flurl.Http.deps.json",
+        "lib/netstandard1.4/Flurl.Http.dll",
+        "lib/netstandard1.4/Flurl.Http.pdb",
+        "lib/netstandard1.4/Flurl.Http.xml",
+        "lib/portable40-net45+sl5+win8+wp8+wpa81/Flurl.Http.deps.json",
+        "lib/portable40-net45+sl5+win8+wp8+wpa81/Flurl.Http.dll",
+        "lib/portable40-net45+sl5+win8+wp8+wpa81/Flurl.Http.pdb",
+        "lib/portable40-net45+sl5+win8+wp8+wpa81/Flurl.Http.xml",
+        "lib/xamarin.ios/Flurl.Http.deps.json",
+        "lib/xamarin.ios/Flurl.Http.dll",
+        "lib/xamarin.ios/Flurl.Http.pdb",
+        "lib/xamarin.ios/Flurl.Http.xml",
+        "lib/xamarin.mac/Flurl.Http.deps.json",
+        "lib/xamarin.mac/Flurl.Http.dll",
+        "lib/xamarin.mac/Flurl.Http.pdb",
+        "lib/xamarin.mac/Flurl.Http.xml"
       ]
     },
     "Microsoft.CSharp/4.0.1": {
@@ -1108,17 +1160,6 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
-      ]
-    },
-    "Microsoft.Extensions.Primitives/1.0.0": {
-      "sha512": "3q2vzfKEDjL6JFkRpk5SFA3zarYsO6+ZYgoucNImrUMzDn0mFbEOL5p9oPoWiypwypbJVVjWTf557bXZ0YFLig==",
-      "type": "package",
-      "path": "Microsoft.Extensions.Primitives/1.0.0",
-      "files": [
-        "Microsoft.Extensions.Primitives.1.0.0.nupkg.sha512",
-        "Microsoft.Extensions.Primitives.nuspec",
-        "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll",
-        "lib/netstandard1.0/Microsoft.Extensions.Primitives.xml"
       ]
     },
     "Microsoft.NETCore.Jit/1.0.2": {
@@ -1334,21 +1375,6 @@
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+wp80+win8+wpa81/Newtonsoft.Json.xml",
         "tools/install.ps1"
-      ]
-    },
-    "RestEase/1.2.3": {
-      "sha512": "Pns7BQcRWvs2hC8Ke7zdZZtqOQ5Y9/hzT4NVLWfxFzHhmjFdeBRwZsoc7ls8ftl3Df3/HeuGdVRc+5+UCz9WFA==",
-      "type": "package",
-      "path": "RestEase/1.2.3",
-      "files": [
-        "RestEase.1.2.3.nupkg.sha512",
-        "RestEase.nuspec",
-        "lib/net40/RestEase.dll",
-        "lib/net40/RestEase.xml",
-        "lib/net45/RestEase.dll",
-        "lib/net45/RestEase.xml",
-        "lib/netstandard1.3/RestEase.dll",
-        "lib/netstandard1.3/RestEase.xml"
       ]
     },
     "runtime.native.System/4.0.0": {
@@ -3723,6 +3749,43 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "System.Text.Encoding.CodePages/4.0.1": {
+      "sha512": "h4z6rrA/hxWf4655D18IIZ0eaLRa3tQC/j+e26W+VinIHY0l07iEXaAvO0YSYq3MvCjMYy8Zs5AdC1sxNQOB7Q==",
+      "type": "package",
+      "path": "System.Text.Encoding.CodePages/4.0.1",
+      "files": [
+        "System.Text.Encoding.CodePages.4.0.1.nupkg.sha512",
+        "System.Text.Encoding.CodePages.nuspec",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Text.Encoding.CodePages.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netstandard1.3/System.Text.Encoding.CodePages.dll",
+        "ref/netstandard1.3/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/de/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/es/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/fr/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/it/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/ja/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/ko/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/ru/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/zh-hans/System.Text.Encoding.CodePages.xml",
+        "ref/netstandard1.3/zh-hant/System.Text.Encoding.CodePages.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netstandard1.3/System.Text.Encoding.CodePages.dll",
+        "runtimes/win/lib/netstandard1.3/System.Text.Encoding.CodePages.dll"
+      ]
+    },
     "System.Text.Encoding.Extensions/4.0.11": {
       "sha512": "jtbiTDtvfLYgXn8PTfWI+SiBs51rrmO4AAckx4KR6vFK9Wzf6tI8kcRdsYQNwriUeQ1+CtQbM1W4cMbLXnj/OQ==",
       "type": "package",
@@ -3787,19 +3850,6 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._"
-      ]
-    },
-    "System.Text.Encodings.Web/4.0.0": {
-      "sha512": "TWZnuiJgPDAEEUfobD7njXvSVR2Toz+jvKWds6yL4oSztmKQfnWzucczjzA+6Dv1bktBdY71sZW1YN0X6m9chQ==",
-      "type": "package",
-      "path": "System.Text.Encodings.Web/4.0.0",
-      "files": [
-        "System.Text.Encodings.Web.4.0.0.nupkg.sha512",
-        "System.Text.Encodings.Web.nuspec",
-        "ThirdPartyNotices.txt",
-        "dotnet_library_license.txt",
-        "lib/netstandard1.0/System.Text.Encodings.Web.dll",
-        "lib/netstandard1.0/System.Text.Encodings.Web.xml"
       ]
     },
     "System.Text.RegularExpressions/4.1.0": {
@@ -4225,13 +4275,14 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Flurl >= 2.2.1",
+      "Flurl.Http >= 1.0.3",
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.1",
       "NETStandard.Library >= 1.6.0",
-      "RestEase >= 1.2.3",
       "System.Reflection.TypeExtensions >= 4.1.0",
       "System.Runtime.Serialization.Primitives >= 4.1.1"
     ],
-    ".NETStandard,Version=v1.3": []
+    ".NETStandard,Version=v1.4": []
   },
   "tools": {},
   "projectFileToolGroups": {}

@@ -1,0 +1,153 @@
+{
+  "runtimeTarget": {
+    "name": ".NETPortable,Version=v4.0,Profile=Profile344/",
+    "signature": "b6f83fcc70d5242088e05acc61517027f824b1ab"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETPortable,Version=v4.0,Profile=Profile344": {},
+    ".NETPortable,Version=v4.0,Profile=Profile344/": {
+      "Flurl.Http/1.0.3": {
+        "dependencies": {
+          "Microsoft.Bcl.Async": "1.0.168",
+          "Microsoft.Bcl.Build": "1.0.21",
+          "Microsoft.Net.Http": "2.2.29",
+          "PCLStorage": "1.0.2",
+          "Flurl": "2.2.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "runtime": {
+          "Flurl.Http.dll": {}
+        }
+      },
+      "Microsoft.Bcl/1.1.10": {
+        "dependencies": {
+          "Microsoft.Bcl.Build": "1.0.21"
+        },
+        "runtime": {
+          "lib/portable-net40+sl5+win8+wp8+wpa81/System.IO.dll": {},
+          "lib/portable-net40+sl5+win8+wp8+wpa81/System.Runtime.dll": {},
+          "lib/portable-net40+sl5+win8+wp8+wpa81/System.Threading.Tasks.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Async/1.0.168": {
+        "dependencies": {
+          "Microsoft.Bcl": "1.1.10"
+        },
+        "runtime": {
+          "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.Extensions.dll": {},
+          "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Build/1.0.21": {},
+      "Microsoft.Net.Http/2.2.29": {
+        "dependencies": {
+          "Microsoft.Bcl": "1.1.10",
+          "Microsoft.Bcl.Build": "1.0.21"
+        },
+        "runtime": {
+          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Extensions.dll": {},
+          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.Primitives.dll": {},
+          "lib/portable-net40+sl4+win8+wp71+wpa81/System.Net.Http.dll": {}
+        }
+      },
+      "Newtonsoft.Json/9.0.1": {
+        "runtime": {
+          "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "PCLStorage/1.0.2": {
+        "dependencies": {
+          "Microsoft.Bcl": "1.1.10",
+          "Microsoft.Bcl.Async": "1.0.168"
+        },
+        "runtime": {
+          "lib/portable-net45+sl5+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac/PCLStorage.Abstractions.dll": {},
+          "lib/portable-net45+sl5+wp8+wpa81+win8+monoandroid+monotouch+Xamarin.iOS+Xamarin.Mac/PCLStorage.dll": {}
+        }
+      },
+      "Flurl/2.2.1": {
+        "dependencies": {
+          "mscorlib": "2.0.5.0",
+          "System": "2.0.5.0",
+          "System.Core": "2.0.5.0"
+        },
+        "runtime": {
+          "Flurl.dll": {}
+        }
+      },
+      "mscorlib/2.0.5.0": {},
+      "System/2.0.5.0": {},
+      "System.Core/2.0.5.0": {},
+      "System.Net/2.0.5.0": {},
+      "System.Runtime.Serialization/2.0.5.0": {}
+    }
+  },
+  "libraries": {
+    "Flurl.Http/1.0.3": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Bcl/1.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+tTqoh/M1pyL8El3qLy30EcwnAtyvFoDZJtdG9Cbg/WdFbh4N8kyrq198XHuEL7lnJbeD0DRO8jcX5IIOh05cQ=="
+    },
+    "Microsoft.Bcl.Async/1.0.168": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tUNC02eBwDKpGre0BcNIvblLv1q0Q3DnS/vtkRHj2FE1sXwt386HAudztyl5C0U88hllrqHDvtlz8bK0Y8cHDA=="
+    },
+    "Microsoft.Bcl.Build/1.0.21": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sgHu4mIt0+NVGyI12Bj4hLPypNK55UOH+ologj2LqDCjxq3EbIxe/uAtHjY+fEwbE1dtsAHG8SXHf+V/EYbKTg=="
+    },
+    "Microsoft.Net.Http/2.2.29": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fc4CPEewJ30Xgal+fSq1lYIBt582A7eKlAL7O4HXiYAiTp2VTnA4osSvk7T2n8aS4xTCPVJusQk3yKLT0XSpkg=="
+    },
+    "Newtonsoft.Json/9.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw=="
+    },
+    "PCLStorage/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9If+1ZFCk3QaT/asfiL+J9FMnx2CTMrLCU8tDMUOI/aCGWGWl9vJ1/KcMkjf92op23ZknenvYJZBLDAqE3sFlg=="
+    },
+    "Flurl/2.2.1": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "mscorlib/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Core/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Net/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Runtime.Serialization/2.0.5.0": {
+      "type": "referenceassembly",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

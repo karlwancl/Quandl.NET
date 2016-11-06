@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Flurl;
+using Flurl.Http;
 using Quandl.NET.Helper;
 using Quandl.NET.Model.Enum;
 using Quandl.NET.Model.Response;
-using RestEase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,17 +11,10 @@ using System.Threading.Tasks;
 
 namespace Quandl.NET
 {
-    public class DatasetApi : QuandlApiBase
+    public partial class DatasetApi : QuandlApiBase
     {
-        private IDatasetApi _api;
-
         public DatasetApi(string apiKey) : base(apiKey)
         {
-            _api = new RestClient(Constant.HostUri)
-            {
-                RequestQueryParamSerializer = new AdvancedRequestQueryParamSerializer(),
-                 
-            }.For<IDatasetApi>();
         }
 
         /// <summary>
@@ -44,14 +37,20 @@ namespace Quandl.NET
         {
             try
             {
-                using (var response = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Json.ToEnumMemberValue(), limit, columnIndex, startDate, endDate,
-                    order, collapse, transform, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatasetResponse>(json);
-                }
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}/data.json"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatasetResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -95,11 +94,20 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetAsync(databaseCode, datasetCode, ReturnFormat.Csv.ToEnumMemberValue(), limit, columnIndex, startDate, endDate,
-                    order, collapse, transform, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}/data.csv"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -143,14 +151,20 @@ namespace Quandl.NET
         {
             try
             {
-                using (var response = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json.ToEnumMemberValue(), limit, columnIndex,
-                    startDate, endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatasetMetadataResponse>(json);
-                }
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}/metadata.json"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatasetMetadataResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -194,11 +208,20 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv.ToEnumMemberValue(), limit, columnIndex,
-                    startDate, endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}/metadata.csv"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -242,14 +265,20 @@ namespace Quandl.NET
         {
             try
             {
-                using (var response = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Json.ToEnumMemberValue(), limit, columnIndex, startDate,
-                    endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDataAndMetadataResponse>(json);
-                }
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}.json"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDataAndMetadataResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -293,11 +322,20 @@ namespace Quandl.NET
         {
             try
             {
-                var response = await _api.GetDataAndMetadataAsync(databaseCode, datasetCode, ReturnFormat.Csv.ToEnumMemberValue(), limit, columnIndex, startDate,
-                    endDate, order, collapse, transform, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                return await $"{Constant.HostUri}/datasets/{databaseCode}/{datasetCode}.csv"
+                    .SetQueryParam("limit", limit)
+                    .SetQueryParam("column_index", columnIndex)
+                    .SetQueryParam("start_date", startDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("end_date", endDate?.ToString("yyyy-MM-dd"))
+                    .SetQueryParam("order", order.ToEnumMemberValue())
+                    .SetQueryParam("collapse", collapse.ToEnumMemberValue())
+                    .SetQueryParam("transform", transform.ToEnumMemberValue())
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
@@ -335,19 +373,35 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedQuery = query != null ? string.Join("+", query) : null;
-
-                using (var response = await _api.GetListAsync(ReturnFormat.Json.ToEnumMemberValue(), correctedQuery, databaseCode, perPage, page, _apiKey, token).ConfigureAwait(false))
-                {
-                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    return JsonConvert.DeserializeObject<GetDatasetListResponse>(json);
-                }
+                var massagedQuery = query != null ? string.Join("+", query) : null;
+                return await $"{Constant.HostUri}/datasets.json"
+                    .SetQueryParam("query", query)
+                    .SetQueryParam("database_code", databaseCode)
+                    .SetQueryParam("per_page", perPage)
+                    .SetQueryParam("page", page)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveJson<GetDatasetListResponse>()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
         }
+
+        /// <summary>
+        /// You can search for individual datasets on Quandl using this API route.
+        /// <a href="https://www.quandl.com/docs/api?json#dataset-search">Reference</a>
+        /// </summary>
+        /// <param name="query">Your search query</param>
+        /// <param name="databaseCode">Restrict search results to a specific database.</param>
+        /// <param name="perPage">Number of search results per page.</param>
+        /// <param name="page">Page number to return.</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Get dataset response</returns>
+        public async Task<GetDatasetListResponse> GetListAsync(List<string> query, DatabaseCode? code = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
+            => await GetListAsync(query, code.ToEnumMemberValue(), perPage, page, token);
 
         /// <summary>
         /// You can search for individual datasets on Quandl using this API route.
@@ -363,15 +417,34 @@ namespace Quandl.NET
         {
             try
             {
-                var correctedQuery = query != null ? string.Join("+", query) : null;
-
-                var response = await _api.GetListAsync(ReturnFormat.Csv.ToEnumMemberValue(), correctedQuery, databaseCode, perPage, page, _apiKey, token).ConfigureAwait(false);
-                return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var massagedQuery = query != null ? string.Join("+", query) : null;
+                return await $"{Constant.HostUri}/datasets.csv"
+                    .SetQueryParam("query", query)
+                    .SetQueryParam("database_code", databaseCode)
+                    .SetQueryParam("per_page", perPage)
+                    .SetQueryParam("page", page)
+                    .SetQueryParam("api_key", _apiKey)
+                    .GetAsync(token)
+                    .ReceiveStream()
+                    .ConfigureAwait(false);
             }
-            catch (RestEase.ApiException ex)
+            catch (FlurlHttpException ex)
             {
                 throw ex.ToQuandlException();
             }
         }
+
+        /// <summary>
+        /// You can search for individual datasets on Quandl using this API route.
+        /// <a href="https://www.quandl.com/docs/api?csv#dataset-search">Reference</a>
+        /// </summary>
+        /// <param name="query">Your search query. Separate multiple items with “+”.</param>
+        /// <param name="databaseCode">Restrict search results to a specific database.</param>
+        /// <param name="perPage">Number of search results per page.</param>
+        /// <param name="page">Page number to return.</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Stream of csv file (.csv)</returns>
+        public async Task<Stream> GetListCsvAsync(List<string> query, DatabaseCode? databaseCode = null, int? perPage = null, int? page = null, CancellationToken token = default(CancellationToken))
+            => await GetListCsvAsync(query, databaseCode.ToEnumMemberValue(), perPage, page, token);
     }
 }
