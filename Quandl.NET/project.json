@@ -1,6 +1,6 @@
 ﻿{
   "name": "Quandl.NET",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.4",
   "copyright": "Copyright (c) 2016 SalmonThinLion",
   "title": "Quandl.NET",

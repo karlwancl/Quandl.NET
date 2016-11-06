@@ -16,6 +16,9 @@ namespace Quandl.NET.Helper
 
         public static Url SetQueryParamForEach(this string url, Dictionary<string, string> dict)
         {
+            if (dict == null)
+                return url;
+
             Url urlToReturn = url;
             foreach (var kvp in dict)
             {
