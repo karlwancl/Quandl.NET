@@ -76,6 +76,23 @@ You can find the package through Nuget
 	var query = new List<string> { "crude", "oil" };
 	var result = await client.Dataset.GetListAsync(query, "ODA", 1, 1);
 
+#### Useful Data And Lists
+
+##### Get List Of Index Constituents And The Corresponding Quandl Code
+	// Includes S&P500, Dow Jones, NASDAQ Composite, NASDAQ 100, NYSE Composite, FTSE 100
+	var result = await UsefulDataAndLists.GetSP500IndexConstituentsAsync();
+
+##### Get List Of Futures And The Corresponding Quandl Code
+	var result = await UsefulDataAndLists.GetFuturesMetadataAsync();
+
+##### Get List Of Commodities And The Corresponding Quandl Code
+	var result = await UsefulDataAndLists.GetCommoditiesAsync();
+
+##### Get List Of Currencies, Countries and States
+	var result = await UsefulDataAndLists.GetISOCurrencyCodesAsync();
+	var result2 = await UsefulDataAndLists.GetISO3LetterCountryCodesAsync();
+	var result3 = await UsefulDataAndLists.GetCurrencyCrossRatesAsync();
+
 ### Powered by
 * [Flurl](https://github.com/tmenier/Flurl) ([@tmenier](https://github.com/tmenier)) - A simple & elegant fluent-style REST api library 
 
