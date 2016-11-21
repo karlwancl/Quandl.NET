@@ -2,6 +2,20 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.4": {
+      "CsvHelper/2.16.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.0.1",
+          "NETStandard.Library": "1.6.0",
+          "System.Reflection.TypeExtensions": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/CsvHelper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/CsvHelper.dll": {}
+        }
+      },
       "Flurl/2.2.1": {
         "type": "package",
         "dependencies": {
@@ -1035,6 +1049,27 @@
     }
   },
   "libraries": {
+    "CsvHelper/2.16.3": {
+      "sha512": "RTxNM9Q6MDg3WpGorrK7E9eXsjGhtDLYx5dBuHol5kHDpu7kND2NveHDVCFQgGxowuDB57ettaOEn3EJqiJ1oQ==",
+      "type": "package",
+      "path": "csvhelper/2.16.3",
+      "files": [
+        "CsvHelper.2.16.3.nupkg.sha512",
+        "CsvHelper.nuspec",
+        "lib/net20/CsvHelper.dll",
+        "lib/net20/CsvHelper.xml",
+        "lib/net35/CsvHelper.dll",
+        "lib/net35/CsvHelper.xml",
+        "lib/net40/CsvHelper.dll",
+        "lib/net40/CsvHelper.xml",
+        "lib/net45/CsvHelper.dll",
+        "lib/net45/CsvHelper.xml",
+        "lib/netstandard1.3/CsvHelper.dll",
+        "lib/netstandard1.3/CsvHelper.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/CsvHelper.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/CsvHelper.xml"
+      ]
+    },
     "Flurl/2.2.1": {
       "sha512": "xon6xHgSO/eA8/uoyOmYgiWWF2wtOWw3TjcDmDHH/HgTxFibsdQvDxxY93rHXhelGyD65ykrSJstgOjiIwR9jQ==",
       "type": "package",
@@ -4274,6 +4309,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "CsvHelper >= 2.16.3",
       "Flurl >= 2.2.1",
       "Flurl.Http >= 1.0.3",
       "Microsoft.NETCore.Portable.Compatibility >= 1.0.1",

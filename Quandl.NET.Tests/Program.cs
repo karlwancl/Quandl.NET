@@ -20,10 +20,10 @@ namespace Quandl.NET.Tests
             //var result = client.Database.GetListCsvAsync(new List<string> { "stock", "price" }, 1, 1 ).Result;
             //var result = client.Database.GetMetadataCsvAsync("WIKI").Result;
 
-            var rowFilter = new Dictionary<string, List<string>>();
-            rowFilter.Add("isin", new List<string> { "FI0009000681", "DE0007236101" });
-            var columnFilter = new List<string> { "isin", "company123" };
-            var result = client.Datatable.GetAsync("INQ", "EE", rowFilter, columnFilter).Result;
+            //var rowFilter = new Dictionary<string, List<string>>();
+            //rowFilter.Add("isin", new List<string> { "FI0009000681", "DE0007236101" });
+            //var columnFilter = new List<string> { "isin", "company123" };
+            //var result = client.Datatable.GetAsync("INQ", "EE", rowFilter, columnFilter).Result;
             //var result = client.Datatable.GetMetadataCsvAsync("INQ", "EE").Result;
             //var result = client.Datatable.GetMetadataAsync("ABCD", "GG").Result;
 
@@ -38,6 +38,13 @@ namespace Quandl.NET.Tests
             //{
             //    result.CopyTo(fs);
             //}
+
+            //var result = UsefulDataAndLists.GetSP500IndexConstituentsAsync().Result;
+            //var result2 = UsefulDataAndLists.GetDowJonesIndustrialAverageConstituentsAsync().Result;
+            //var result3 = UsefulDataAndLists.GetCommoditiesAsync().Result;
+            var result4 = UsefulDataAndLists.GetISOCurrencyCodesAsync().Result;
+            var result5 = UsefulDataAndLists.GetISO3LetterCountryCodesAsync().Result;
+            var result6 = UsefulDataAndLists.GetCurrencyCrossRatesAsync().Result;
 
             Console.WriteLine("Process completed!");
         }

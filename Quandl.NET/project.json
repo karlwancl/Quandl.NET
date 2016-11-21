@@ -25,6 +25,7 @@
   },
   "supports": {},
   "dependencies": {
+    "CsvHelper": "2.16.3",
     "Flurl": "2.2.1",
     "Flurl.Http": "1.0.3",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",

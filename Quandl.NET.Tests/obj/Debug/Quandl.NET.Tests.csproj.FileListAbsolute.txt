@@ -6,7 +6,6 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.Exte
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.Win32.Primitives.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Newtonsoft.Json.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.dll
-Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Refit.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.AppContext.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Buffers.dll
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Console.dll
@@ -28,7 +27,6 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.pdb
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.AspNetCore.WebUtilities.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Microsoft.Extensions.Primitives.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Newtonsoft.Json.xml
-Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Refit.pdb
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encodings.Web.xml
 Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\obj\Debug\Quandl.NET.Tests.csprojResolveAssemblyReference.cache
@@ -79,3 +77,12 @@ Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Runtime
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.pdb
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.xml
 \\Mac\Home\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Quandl.NET.pdb
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\System.Text.Encoding.CodePages.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.pdb
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.xml
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.pdb
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\Flurl.Http.xml
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\CsvHelper.dll
+Y:\Development\fc886\Source\Quandl.NET\Quandl.NET.Tests\bin\Debug\CsvHelper.xml
