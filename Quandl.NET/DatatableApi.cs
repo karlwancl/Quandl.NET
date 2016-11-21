@@ -52,20 +52,6 @@ namespace Quandl.NET
 
         /// <summary>
         /// This API call returns a datatable, subject to a limit of 10,000 rows.
-        /// <a href="https://www.quandl.com/docs/api?json#get-entire-datatable">Reference</a>
-        /// </summary>
-        /// <param name="code">Datatable code</param>
-        /// <param name="rowFilter">Criteria to filter row</param>
-        /// <param name="columnFilter">Criteria to filter column</param>
-        /// <param name="nextCursorId">Next cursor id</param>
-        /// <param name="token">Cancellation token</param>
-        /// <returns>Get datatable response</returns>
-        public async Task<GetDatatableResponse> GetAsync(DatatableCode code, Dictionary<string, List<string>> rowFilter = null,
-            List<string> columnFilter = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
-            => await GetAsync(code.ToPair().Item1, code.ToPair().Item2, rowFilter, columnFilter, nextCursorId, token);
-
-        /// <summary>
-        /// This API call returns a datatable, subject to a limit of 10,000 rows.
         /// <a href="https://www.quandl.com/docs/api?csv#get-entire-datatable">Reference</a>
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
@@ -102,21 +88,6 @@ namespace Quandl.NET
         }
 
         /// <summary>
-        /// This API call returns a datatable, subject to a limit of 10,000 rows.
-        /// <a href="https://www.quandl.com/docs/api?csv#get-entire-datatable">Reference</a>
-        /// </summary>
-        /// <param name="code">Datatable code</param>
-        /// <param name="rowFilter">Criteria to filter row</param>
-        /// <param name="columnFilter">Criteria to filter column</param>
-        /// <param name="fullResult">Flag to display full result</param>
-        /// <param name="nextCursorId">Next cursor id</param>
-        /// <param name="token">Cancellation token</param>
-        /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetCsvAsync(DatatableCode code, Dictionary<string, List<string>> rowFilter = null,
-            List<string> columnFilter = null, bool? fullResult = null, int? nextCursorId = null, CancellationToken token = default(CancellationToken))
-            => await GetCsvAsync(code.ToPair().Item1, code.ToPair().Item2, rowFilter, columnFilter, fullResult, nextCursorId, token);
-
-        /// <summary>
         /// This API call returns datatable's metadata
         /// </summary>
         /// <param name="databaseCode">short code for database</param>
@@ -142,15 +113,6 @@ namespace Quandl.NET
         /// <summary>
         /// This API call returns datatable's metadata
         /// </summary>
-        /// <param name="code">Datatable code</param>
-        /// <param name="token">Cancellation token</param>
-        /// <returns>Get datatable metadata response</returns>
-        public async Task<GetDatatableMetadataResponse> GetMetadataAsync(DatatableCode code, CancellationToken token = default(CancellationToken))
-            => await GetMetadataAsync(code.ToPair().Item1, code.ToPair().Item2, token);
-
-        /// <summary>
-        /// This API call returns datatable's metadata
-        /// </summary>
         /// <param name="databaseCode">short code for database</param>
         /// <param name="datatableCode">short code for datatable</param>
         /// <param name="token">Cancellation token</param>
@@ -170,14 +132,5 @@ namespace Quandl.NET
                 throw ex.ToQuandlException();
             }
         }
-
-        /// <summary>
-        /// This API call returns datatable's metadata
-        /// </summary>
-        /// <param name="code">Datatable code</param>
-        /// <param name="token">Cancellation token</param>
-        /// <returns>Stream of csv file (.csv)</returns>
-        public async Task<Stream> GetMetadataCsvAsync(DatatableCode code, CancellationToken token = default(CancellationToken))
-            => await GetMetadataCsvAsync(code.ToPair().Item1, code.ToPair().Item2, token);
     }
 }
