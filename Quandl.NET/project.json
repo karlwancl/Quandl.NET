@@ -1,6 +1,6 @@
 ﻿{
   "name": "Quandl.NET",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.4",
   "copyright": "Copyright (c) 2016 SalmonThinLion",
   "title": "Quandl.NET",
@@ -14,12 +14,14 @@
       "Finance",
       "Economic",
       "Stock",
+      "Futures",
+      "Commodities",
       "API"
     ],
     "owners": [
       "SalmonThinLion"
     ],
-    "releaseNotes": "[7/11/2016] BIG UPDATE: REST API part is migrated to Flurl to fix the \"Not refit interface\" exception, the nuget package should be functional again\n[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
+    "releaseNotes": "[21/11/2016] Added UsefulDataAndLists for querying index constituents/futures/commodities, etc.\n[7/11/2016] BIG UPDATE: REST API part is migrated to Flurl to fix the \"Not refit interface\" exception, the nuget package should be functional again\n[4/11/2016] The library can now query datatable's metadata\n[3/11/2016] Added Cancellation token for cancelling request",
     "projectUrl": "https://github.com/salmonthinlion/Quandl.NET",
     "licenseUrl": "https://github.com/salmonthinlion/Quandl.NET/blob/master/LICENSE"
   },
