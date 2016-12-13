@@ -29,11 +29,11 @@
   "dependencies": {
     "CsvHelper": "2.16.3",
     "Flurl": "2.2.1",
-    "Flurl.Http": "1.0.3",
+    "Flurl.Http": "1.1.1",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-    "NETStandard.Library": "1.6.0",
-    "System.Reflection.TypeExtensions": "4.1.0",
-    "System.Runtime.Serialization.Primitives": "4.1.1"
+    "NETStandard.Library": "1.6.1",
+    "System.Reflection.TypeExtensions": "4.3.0",
+    "System.Runtime.Serialization.Primitives": "4.3.0"
   },
   "frameworks": {
     "netstandard1.4": {}
