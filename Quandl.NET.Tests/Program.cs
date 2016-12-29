@@ -1,4 +1,5 @@
 ﻿using Quandl.NET.Model.Enum;
+using Quandl.NET;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ namespace Quandl.NET.Tests
             var client = new QuandlClient(apiKey);
             Console.WriteLine("The request is sending...");
 
+            var result = client.Dataset.GetAsync("WIKI", "FB").Result;
             //var result = client.Database.GetZipAsync("WIKI", DownloadType.Partial).Result;
             //var result = client.Database.GetDatasetListZipAsync("WIKI").Result;
             //var result = client.Database.GetMetadataAsync("ABCD").Result;
@@ -42,9 +44,9 @@ namespace Quandl.NET.Tests
             //var result = UsefulDataAndLists.GetSP500IndexConstituentsAsync().Result;
             //var result2 = UsefulDataAndLists.GetDowJonesIndustrialAverageConstituentsAsync().Result;
             //var result3 = UsefulDataAndLists.GetCommoditiesAsync().Result;
-            var result4 = UsefulDataAndLists.GetISOCurrencyCodesAsync().Result;
-            var result5 = UsefulDataAndLists.GetISO3LetterCountryCodesAsync().Result;
-            var result6 = UsefulDataAndLists.GetCurrencyCrossRatesAsync().Result;
+            //var result4 = UsefulDataAndLists.GetISOCurrencyCodesAsync().Result;
+            //var result5 = UsefulDataAndLists.GetISO3LetterCountryCodesAsync().Result;
+            //var result6 = UsefulDataAndLists.GetCurrencyCrossRatesAsync().Result;
 
             Console.WriteLine("Process completed!");
         }

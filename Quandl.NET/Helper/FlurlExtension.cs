@@ -8,10 +8,15 @@ namespace Quandl.NET.Helper
 {
     internal static class FlurlExtension
     {
-        public static QuandlException ToQuandlException(this FlurlHttpException ex)
+        public static System.Exception ToQuandlException(this FlurlHttpException ex)
         {
-            dynamic content = JsonConvert.DeserializeObject(ex.GetResponseString());
-            return new QuandlException(content.quandl_error.code.ToString(), content.quandl_error.message.ToString());
+            var str = ex.GetResponseString();
+            if (!string.IsNullOrWhiteSpace(str) && str.Contains("quandl_error"))
+            {
+                dynamic content = JsonConvert.DeserializeObject(str);
+                return new QuandlException(content.quandl_error.code.ToString(), content.quandl_error.message.ToString()); 
+            }
+            return ex;
         }
 
         public static Url SetQueryParamForEach(this string url, Dictionary<string, string> dict)
