@@ -37,22 +37,22 @@ You can find the package through Nuget
 
 ##### Get filtered time-series data [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-filtered-time-series-data)
 	var data = await client.Timeseries.GetDataAsync("WIKI", "FB", 
-													columnIndex: 4, 
-													startDate: new DateTime(2014, 1, 1), 
-													endDate: new DateTime(2014, 12, 31), 
-													collapse: Model.Enum.Collapse.Monthly, 
-													transform: Model.Enum.Transform.Rdiff);
+		columnIndex: 4, 
+		startDate: new DateTime(2014, 1, 1), 
+		endDate: new DateTime(2014, 12, 31), 
+		collapse: Model.Enum.Collapse.Monthly, 
+		transform: Model.Enum.Transform.Rdiff);
 
 ##### Get time-series metadata [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-metadata)
 	var data = await client.Timeseries.GetMetadataAsync("EOD", "FB");
 
 ##### Get time-series data and metadata [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-data-and-metadata)
 	var data = await client.Timeseries.GetDataAndMetadataAsync("WIKI", "FB",
-											columnIndex: 4,
-											startDate: new DateTime(2014, 1, 1),
-											endDate: new DateTime(2014, 12, 31),
-											collapse: Model.Enum.Collapse.Monthly,
-											transform: Model.Enum.Transform.Rdiff);
+		columnIndex: 4,
+		startDate: new DateTime(2014, 1, 1),
+		endDate: new DateTime(2014, 12, 31),
+		collapse: Model.Enum.Collapse.Monthly,
+		transform: Model.Enum.Transform.Rdiff);
 
 ##### Get metadata for a time-series database [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-metadata-for-a-time-series-database)
 	var data = await client.Timeseries.GetDatabaseMetadataAsync("WIKI");
