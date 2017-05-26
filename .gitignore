@@ -250,6 +250,3 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
-# Sensitive
-Quandl.NET.Tests/MyQuandl.cs
