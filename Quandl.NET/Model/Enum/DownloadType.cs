@@ -7,7 +7,7 @@ namespace Quandl.NET.Model.Enum
         [EnumMember(Value = "partial")]
         Partial,
 
-        [EnumMember(Value = "complete")]
-        Complete
+        [EnumMember(Value = "full")]
+        Full
     }
 }

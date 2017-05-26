@@ -4,13 +4,13 @@ namespace Quandl.NET.Model.Response
 {
     public class GetDatasetListResponse
     {
-        public GetDatasetListResponse(List<DatasetMetadata> datasets, Meta meta)
+        public GetDatasetListResponse(List<TimeseriesMetadata> datasets, Meta meta)
         {
             Datasets = datasets;
             Meta = meta;
         }
 
-        public List<DatasetMetadata> Datasets { get; private set; }
+        public List<TimeseriesMetadata> Datasets { get; private set; }
 
         public Meta Meta { get; private set; }
     }

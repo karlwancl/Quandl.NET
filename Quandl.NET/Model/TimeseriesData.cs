@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Quandl.NET.Model
 {
-    public class DatasetData
+    public class TimeseriesData
     {
-        public DatasetData(int? limit, Transform? transform, int? column_index, List<string> column_names, DateTime? start_date,
+        public TimeseriesData(int? limit, Transform? transform, int? column_index, List<string> column_names, DateTime? start_date,
             DateTime? end_date, string frequency, List<object[]> data, Collapse? collapse, Order? order)
         {
             Limit = limit;

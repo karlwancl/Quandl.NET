@@ -1,8 +1,8 @@
 ﻿namespace Quandl.NET.Model.Response
 {
-    public class GetDatabaseMetadataResponse
+    public class DatabaseMetadataResponse
     {
-        public GetDatabaseMetadataResponse(DatabaseMetadata database)
+        public DatabaseMetadataResponse(DatabaseMetadata database)
         {
             Database = database;
         }

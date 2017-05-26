@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.NET", "Quandl.NET\Quandl.NET.csproj", "{37410600-5A97-455E-9832-4D2921A9FB1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.NET.Tests", "Quandl.NET.Tests\Quandl.NET.Tests.csproj", "{F8E2CADF-5F79-4BF6-8639-69C327602828}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quandl.NET.Tests", "Quandl.NET.Tests\Quandl.NET.Tests.csproj", "{730F1F56-BCEF-406F-9AA7-3B9533FDB3E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{37410600-5A97-455E-9832-4D2921A9FB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37410600-5A97-455E-9832-4D2921A9FB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37410600-5A97-455E-9832-4D2921A9FB1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8E2CADF-5F79-4BF6-8639-69C327602828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8E2CADF-5F79-4BF6-8639-69C327602828}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8E2CADF-5F79-4BF6-8639-69C327602828}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8E2CADF-5F79-4BF6-8639-69C327602828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{730F1F56-BCEF-406F-9AA7-3B9533FDB3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{730F1F56-BCEF-406F-9AA7-3B9533FDB3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{730F1F56-BCEF-406F-9AA7-3B9533FDB3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{730F1F56-BCEF-406F-9AA7-3B9533FDB3E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,8 @@
 ﻿namespace Quandl.NET.Model
 {
-    public class DatatableMeta
+    public class TableMeta
     {
-        public DatatableMeta(int? next_cursor_id)
+        public TableMeta(int? next_cursor_id)
         {
             NextCursorId = next_cursor_id;
         }

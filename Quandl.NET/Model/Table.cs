@@ -2,9 +2,9 @@
 
 namespace Quandl.NET.Model
 {
-    public class Datatable
+    public class Table
     {
-        public Datatable(List<object[]> data, List<Column> columns)
+        public Table(List<object[]> data, List<Column> columns)
         {
             Data = data;
             Columns = columns;

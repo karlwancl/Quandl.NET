@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Quandl.NET.Model
 {
-    public class DatasetMetadata
+    public class TimeseriesMetadata
     {
-        public DatasetMetadata(int id, string database_code, string dataset_code, string name, string description,
+        public TimeseriesMetadata(int id, string database_code, string dataset_code, string name, string description,
             DateTime? refreshed_at, DateTime? newest_available_date, DateTime? oldest_available_date, List<string> column_names,
             string frequency, string type, bool? premium, int database_id)
         {

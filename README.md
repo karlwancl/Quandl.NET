@@ -23,7 +23,7 @@ You can find the package through Nuget
 	
 #### Database API Access
 
-##### Get Entire Database (Zip ONLY): [Reference](https://www.quandl.com/docs/api?csv#get-entire-database)
+##### Get Entire Database (Zip ONLY): [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-an-entire-time-series-database)
 
 	// Be careful of the size of the zip file if using complete mode
 	using (var dbs = await client.Database.GetZipAsync("WIKI"))

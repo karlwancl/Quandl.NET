@@ -2,9 +2,9 @@
 
 namespace Quandl.NET.Model
 {
-    public class DatatableMetadata
+    public class TableMetadata
     {
-        public DatatableMetadata(string vendor_code, string datatable_code, string name, string description, List<Column> columns,
+        public TableMetadata(string vendor_code, string datatable_code, string name, string description, List<Column> columns,
             List<string> filters, List<string> primary_key, bool? premium, Status status)
         {
             VendorCode = vendor_code;
