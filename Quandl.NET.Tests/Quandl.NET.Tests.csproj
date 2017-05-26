@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="my.cs" />
+    <ProjectReference Include="..\Quandl.NET\Quandl.NET.csproj" />
   </ItemGroup>
 </Project>

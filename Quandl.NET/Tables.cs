@@ -22,19 +22,19 @@ namespace Quandl.NET
 		/// <a href="https://docs.quandl.com/docs/in-depth-usage-1#section-filter-rows-and-columns">Reference</a>
 		/// </summary>
 		/// <param name="datatableCode">Short code for datatable</param>
-		/// <param name="rowFilterCriteria">Criteria to filter row, value is comma-seperated.</param>
+		/// <param name="rowFilterCriteria">Criteria to filter row, value is ampersand-seperated.</param>
 		/// <param name="columnFilterCriteria">Criteria to filter column, value is comma-seperated.</param>
 		/// <param name="perPage">The number of results per page that can be returned, to a maximum of 10,000 rows. (Large tables will be displayed over several pages.)</param>
 		/// <param name="cursorId">Each API call returns a unique cursor ID that identifies the next page of the table. Including the cursor ID in your API call will allow you to page through the table. A null cursor ID means that the current page will be the last page of the table. For more on downloading entire tables, click here.</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Filtered table</returns>
-		public async Task<TableResponse> GetAsync(string datatableCode, Dictionary<string, string> rowFilterCriteria = null, string columnFilterCriteria = null, 
+		public async Task<TableResponse> GetAsync(string datatableCode, string rowFilterCriteria = null, string columnFilterCriteria = null, 
                                                   int? perPage = null, int? cursorId = null, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{
 				return await $"{Constant.HostUri}/datatables/{datatableCode}.json"
-					.SetQueryParamForEach(rowFilterCriteria)
+					.SetQueryParamForEach(Filter.Parse(rowFilterCriteria))
 					.SetQueryParam("qopts.columns", columnFilterCriteria)
                     .SetQueryParam("qopts.per_page", perPage)
                     .SetQueryParam("qopts.cursor_id", cursorId)
@@ -54,21 +54,21 @@ namespace Quandl.NET
 		/// <a href="https://docs.quandl.com/docs/in-depth-usage-1#section-filter-rows-and-columns">Reference</a>
 		/// </summary>
 		/// <param name="datatableCode">Short code for datatable</param>
-		/// <param name="rowFilterCriteria">Criteria to filter row, value is comma-seperated.</param>
+		/// <param name="returnFormat">Return format</param>
+		/// <param name="rowFilterCriteria">Criteria to filter row, value is ampersand-seperated.</param>
 		/// <param name="columnFilterCriteria">Criteria to filter column, value is comma-seperated.</param>
 		/// <param name="export">Good for large queries; the data requested will be packaged into a zip file for download.</param>
 		/// <param name="perPage">The number of results per page that can be returned, to a maximum of 10,000 rows. (Large tables will be displayed over several pages.)</param>
 		/// <param name="cursorId">Each API call returns a unique cursor ID that identifies the next page of the table. Including the cursor ID in your API call will allow you to page through the table. A null cursor ID means that the current page will be the last page of the table. For more on downloading entire tables, click here.</param>
-		/// <param name="returnFormat">Return format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Filtered table</returns>
-		public async Task<Stream> GetAsync(string datatableCode, Dictionary<string, string> rowFilterCriteria = null, string columnFilterCriteria = null, 
-                                           bool? export = null, int? perPage = null, int? cursorId = null, ReturnFormat returnFormat = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+		public async Task<Stream> GetAsync(string datatableCode, ReturnFormat returnFormat, string rowFilterCriteria = null, string columnFilterCriteria = null, 
+                                           bool? export = null, int? perPage = null, int? cursorId = null, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{
                 return await $"{Constant.HostUri}/datatables/{datatableCode}.{returnFormat.ToEnumMemberValue()}"
-					.SetQueryParamForEach(rowFilterCriteria)
+					.SetQueryParamForEach(Filter.Parse(rowFilterCriteria))
 					.SetQueryParam("qopts.columns", columnFilterCriteria)
                     .SetQueryParam("qopts.export", export)
 					.SetQueryParam("qopts.per_page", perPage)
@@ -114,7 +114,7 @@ namespace Quandl.NET
 		/// <param name="datatableCode">Short code for datatable</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Table metadata</returns>
-		public async Task<Stream> GetMetadataAsync(string datatableCode, ReturnFormat returnFormat = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+		public async Task<Stream> GetMetadataAsync(string datatableCode, ReturnFormat returnFormat, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{

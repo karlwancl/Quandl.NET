@@ -61,6 +61,7 @@ namespace Quandl.NET
 		/// </summary>
 		/// <param name="databaseCode">Code identifying the database to which the dataset belongs.</param>
 		/// <param name="datasetCode">Code identifying the dataset.</param>
+		/// <param name="returnFormat">Return format</param>
 		/// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
 		/// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
 		/// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
@@ -68,11 +69,10 @@ namespace Quandl.NET
 		/// <param name="order">Return data in ascending or descending order of date. Default is desc.</param>
 		/// <param name="collapse">Change the sampling frequency of the returned data. Default is none; i.e., data is returned in its original granularity.</param>
 		/// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is none. Calculation options are described below.</param>
-        /// <param name="returnFormat">Return format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Data from a specified time-series</returns>
-        public async Task<Stream> GetDataAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null,
-			DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, ReturnFormat returnFormat = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+	    public async Task<Stream> GetDataAsync(string databaseCode, string datasetCode, ReturnFormat returnFormat, int? limit = null, int? columnIndex = null,
+			DateTime? startDate = null, DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{
@@ -128,7 +128,7 @@ namespace Quandl.NET
         /// <param name="returnFormat">Return format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Metadata for a specified time-series</returns>
-		public async Task<Stream> GetMetadataAsync(string databaseCode, string datasetCode, ReturnFormat returnFormat = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+		public async Task<Stream> GetMetadataAsync(string databaseCode, string datasetCode, ReturnFormat returnFormat, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{
@@ -189,6 +189,7 @@ namespace Quandl.NET
 		/// </summary>
 		/// <param name="databaseCode">Code identifying the database to which the dataset belongs.</param>
 		/// <param name="datasetCode">Code identifying the dataset.</param>
+		/// <param name="returnFormat">Return format</param>
 		/// <param name="limit">Use limit=n to get the first n rows of the dataset. Use limit=1 to get just the latest row.</param>
 		/// <param name="columnIndex">Request a specific column. Column 0 is the date column and is always returned. Data begins at column 1.</param>
 		/// <param name="startDate">Retrieve data rows on and after the specified start date.</param>
@@ -196,11 +197,10 @@ namespace Quandl.NET
 		/// <param name="order">Return data in ascending or descending order of date. Default is desc.</param>
 		/// <param name="collapse">Change the sampling frequency of the returned data. Default is none; i.e., data is returned in its original granularity.</param>
 		/// <param name="transform">Perform elementary calculations on the data prior to downloading. Default is none. Calculation options are described below.</param>
-		/// <param name="returnFormat">Return format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Data and metadata for a given time-series</returns>
-		public async Task<Stream> GetDataAndMetadataAsync(string databaseCode, string datasetCode, int? limit = null, int? columnIndex = null, DateTime? startDate = null, 
-                                                          DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, ReturnFormat returnFormat  = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+		public async Task<Stream> GetDataAndMetadataAsync(string databaseCode, string datasetCode, ReturnFormat returnFormat, int? limit = null, int? columnIndex = null, DateTime? startDate = null, 
+                                                          DateTime? endDate = null, Order? order = null, Collapse? collapse = null, Transform? transform = null, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{
@@ -254,7 +254,7 @@ namespace Quandl.NET
         /// <param name="returnFormat">Return format</param>
 		/// <param name="token">Cancellation token</param>
 		/// <returns>Metadata for a specified time-series database</returns>
-		public async Task<Stream> GetDatabaseMetadataAsync(string databaseCode, ReturnFormat returnFormat = ReturnFormat.Json, CancellationToken token = default(CancellationToken))
+		public async Task<Stream> GetDatabaseMetadataAsync(string databaseCode, ReturnFormat returnFormat, CancellationToken token = default(CancellationToken))
 		{
 			try
 			{

@@ -4,6 +4,12 @@ Quandl is a marketplace for financial and economic data. All data on Quandl can 
 ### Features
 * Allows access to financial and economic data through Quandl v3 API
 
+### Important Notes [26/05/2017]
+Quandl has recently reorganized the api & divided the api call into 2 categories, namely timeseries & tables [Reference](https://docs.quandl.com/docs/data-organization). To align with the new schema, the following changes on this library was made:
+* DatabaseApi, DatatableApi, DatasetApi under "QuandlClient" has been marked obsoleted and will be removed in the future
+* Timeseries, Tables have been added under "QuandlClient" as a replacement of the original DatabaseApi, DatatableApi & DatasetApi
+You can easily migrate your code following the message given by intellisense, some of the api call such as GetListAsync() will not be supported as there is no equivalent api written in the Quandl's api doc.
+
 ### Supported Platforms
 * .NET Core 1.0
 * .NET Framework 4.6.1 or above
@@ -18,63 +24,62 @@ You can find the package through Nuget
 
 ### How To Use
 
+#### Add using reference
+	using Quandl.NET;
+
 #### Initialize Quandl Client
 	var client = new QuandlClient(apiKey);
 	
-#### Database API Access
+#### Time-series Api
 
-##### Get Entire Database (Zip ONLY): [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-an-entire-time-series-database)
+##### Get time-series data [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-data)
+	var data = await client.Timeseries.GetDataAsync("WIKI", "FB");
 
-	// Be careful of the size of the zip file if using complete mode
-	using (var dbs = await client.Database.GetZipAsync("WIKI"))
-	using (var fs = File.Create(/* zipFileName */))
+##### Get filtered time-series data [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-filtered-time-series-data)
+	var data = await client.Timeseries.GetDataAsync("WIKI", "FB", 
+													columnIndex: 4, 
+													startDate: new DateTime(2014, 1, 1), 
+													endDate: new DateTime(2014, 12, 31), 
+													collapse: Model.Enum.Collapse.Monthly, 
+													transform: Model.Enum.Transform.Rdiff);
+
+##### Get time-series metadata [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-metadata)
+	var data = await client.Timeseries.GetMetadataAsync("EOD", "FB");
+
+##### Get time-series data and metadata [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-data-and-metadata)
+	var data = await client.Timeseries.GetDataAndMetadataAsync("WIKI", "FB",
+											columnIndex: 4,
+											startDate: new DateTime(2014, 1, 1),
+											endDate: new DateTime(2014, 12, 31),
+											collapse: Model.Enum.Collapse.Monthly,
+											transform: Model.Enum.Transform.Rdiff);
+
+##### Get metadata for a time-series database [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-metadata-for-a-time-series-database)
+	var data = await client.Timeseries.GetDatabaseMetadataAsync("WIKI");
+
+##### Get an entire time-series database [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-an-entire-time-series-database)
+	using (var stream = await client.Timeseries.GetEntireDatabaseAsync("SCF", Model.Enum.DownloadType.Full))
+	using (var fs = File.Create("someFileName.zip"))
 	{
-		dbs.CopyTo(fs);
+	    stream.CopyTo(fs);
 	}
-	
-##### Get Database Metadata (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-database-metadata)
-	var result = await client.Database.GetMetadataAsync("WIKI");
-	
-##### Get Database List (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#search-for-databases)
-	var result = await client.Database.GetListAsync();
 
-##### Get Available Dataset List for a Database (Zip ONLY): [Reference](https://www.quandl.com/docs/api?csv#get-list-of-database-contents)
-	using (var dss = await client.Database.GetDatasetListZipAsync("YC"))
-	using (var fs = File.Create(/* zipFileName */))
+#### Tables Api
+
+##### Get table with filters [Reference](https://docs.quandl.com/docs/in-depth-usage-1#section-filter-rows-and-columns)
+	var rowFilter = "ticker=SPY,IWM,GLD&date>2014-01-07";
+	var columnFilter = "ticker,date,shares_outstanding";
+	var data = await client.Tables.GetAsync("ETFG/FUND", rowFilter, columnFilter);
+
+##### Get table metadata [Reference](https://docs.quandl.com/docs/in-depth-usage-1#section-get-table-metadata)
+	var data = await client.Tables.GetMetadataAsync("AR/MWCS");
+
+##### Download an entire table [Reference](https://docs.quandl.com/docs/in-depth-usage-1#section-download-an-entire-table)
+	using (var stream = await client.Tables.DownloadAsync("WIKI/PRICES"))
+	using (var fs = File.Create("someFileName.zip"))
 	{
-		dss.CopyTo(fs);
+		stream.CopyTo(fs);
 	}
-
-#### Datatable API Access
-
-##### Get Entire Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-entire-datatable)
-	var result = await client.Datatable.GetAsync("INQ", "EE");
-	
-##### Query for Datatable (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#filter-rows-and-columns)
-	var rowFilter = new Dictionary<string, List<string>>();
-	rowFilter.Add("isin", new List<string> { "FI0009000681", "DE0007236101" });
-	
-	var columnFilter = new List<string> { "isin", "company" };
-	
-	var result = await client.Datatable.GetAsync("INQ", "EE", rowFilter, columnFilter);
-	
-##### Get Datatable Metadata (.NET Object / CSV)
-	var result = await client.Datatable.GetMetadataAsync("INQ", "EE");
-
-#### Dataset API Access
-
-##### Get a Dataset (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-data)
-	var result = await client.Dataset.GetAsync("WIKI", "FB");
-	
-##### Get Dataset Metadata (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-metadata)
-	var result = await client.Dataset.GetMetadataAsync("WIKI", "FB");
-	
-##### Query For Dataset (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#get-data-and-metadata)
-	var result = await client.Dataset.GetDataAndMetadataAsync("WIKI", "FB", columnIndex: 4, startDate: new DateTime(2014, 1, 1), endDate: new DateTime(2014, 12, 31), collapse: Model.Enum.Collapse.Monthly, transform: Model.Enum.Transform.Rdiff);
-	
-##### Get Dataset by Query (.NET Object / CSV): [Reference](https://www.quandl.com/docs/api?json#dataset-search)
-	var query = new List<string> { "crude", "oil" };
-	var result = await client.Dataset.GetListAsync(query, "ODA", 1, 1);
 
 #### Useful Data And Lists
 

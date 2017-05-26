@@ -2,15 +2,17 @@
 
   <PropertyGroup>
     <Description>A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.4</Description>
-    <Copyright>Copyright (c) 2016 SalmonThinLion</Copyright>
+    <Copyright>Copyright (c) 2016-* SalmonThinLion</Copyright>
     <AssemblyTitle>Quandl.NET</AssemblyTitle>
-    <VersionPrefix>1.0.8</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>SalmonThinLion</Authors>
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>Quandl.NET</AssemblyName>
     <PackageId>Quandl.NET</PackageId>
     <PackageTags>Quandl;Finance;Economic;Stock;Futures;Commodities;API</PackageTags>
-    <PackageReleaseNotes>[29/12/2016] Throws proper exception message when error occurs
+    <PackageReleaseNotes>
+[26/05/2017] Added time-series api and tables api. Makes DatabaseApi, DatatableApi, DatasetApi obsolete.
+[29/12/2016] Throws proper exception message when error occurs
 [21/11/2016] Added UsefulDataAndLists for querying index constituents/futures/commodities, etc.
 [7/11/2016] BIG UPDATE: REST API part is migrated to Flurl to fix the "Not refit interface" exception, the nuget package should be functional again
 [4/11/2016] The library can now query datatable's metadata
