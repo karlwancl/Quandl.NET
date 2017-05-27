@@ -53,8 +53,8 @@ You can find the package through Nuget
 		columnIndex: 4, 
 		startDate: new DateTime(2014, 1, 1), 
 		endDate: new DateTime(2014, 12, 31), 
-		collapse: Model.Enum.Collapse.Monthly, 
-		transform: Model.Enum.Transform.Rdiff);
+		collapse: Collapse.Monthly, 
+		transform: Transform.Rdiff);
 
 	// Output should be similar to Get time-series data api
 
@@ -71,8 +71,8 @@ You can find the package through Nuget
 		columnIndex: 4,
 		startDate: new DateTime(2014, 1, 1),
 		endDate: new DateTime(2014, 12, 31),
-		collapse: Model.Enum.Collapse.Monthly,
-		transform: Model.Enum.Transform.Rdiff);
+		collapse: Collapse.Monthly,
+		transform: Transform.Rdiff);
 
 	// Output should be similar to Get time-series data api
 
