@@ -14,7 +14,7 @@ namespace Quandl.NET.Helper
             if (!string.IsNullOrWhiteSpace(str) && str.Contains("quandl_error"))
             {
                 dynamic content = JsonConvert.DeserializeObject(str);
-                return new QuandlException(content.quandl_error.code.ToString(), content.quandl_error.message.ToString()); 
+                return new QuandlException(content.quandl_error.code.ToString(), content.quandl_error.message.ToString());
             }
             return ex;
         }

@@ -1,16 +1,14 @@
 ﻿using CsvHelper;
 using Flurl.Http;
 using Quandl.NET.Model;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System;
 
 namespace Quandl.NET
 {
-    public static class UsefulDataAndLists
+    public static class Quandl
     {
         private static IEnumerable<StockIndexConstituent> ParseIndexConstituentsResponse(string responseString)
         {
@@ -21,10 +19,10 @@ namespace Quandl.NET
             {
                 constituents.Add(new StockIndexConstituent
                     (
-                        ticker: csvReader.GetField(0),
-                        name: csvReader.GetField(1),
-                        free_code: csvReader.GetField(2),
-                        premium_code: csvReader.GetField(3)
+                        csvReader.GetField(0),
+                        csvReader.GetField(1),
+                        csvReader.GetField(2),
+                        csvReader.GetField(3)
                     ));
             }
 
@@ -38,6 +36,7 @@ namespace Quandl.NET
             var csvReader = new CsvReader(new StringReader(responseString));
             while (csvReader.Read())
             {
+                //Console.WriteLine(string.Join(", ", csvReader.CurrentRecord));
                 metadata.Add(new FuturesMetadata
                     (
                         symbol: csvReader.GetField(0),
@@ -46,10 +45,17 @@ namespace Quandl.NET
                         name: csvReader.GetField(3),
                         session_type: csvReader.GetField(4),
                         active: csvReader.GetField(5) != "0",
-                        terminal_point_value: csvReader.GetField<decimal>(6),
-                        full_point_value: csvReader.GetField<long>(7),
+                        terminal_point_value: csvReader.GetField<decimal?>(6),
+                        full_point_value: csvReader.GetField<long?>(7),
                         currency: csvReader.GetField(8),
-                        contract_size: csvReader.GetField(9)
+                        contract_size: csvReader.GetField(9),
+                                 units: csvReader.GetField(10),
+                                 minimum_tick_value: csvReader.GetField<decimal?>(11),
+                                 tick_value: csvReader.GetField<decimal?>(12),
+                                 delivery_months: csvReader.GetField(13),
+                                 start_date: csvReader.GetField<System.DateTime?>(14),
+                                 trading_times: csvReader.GetField(15),
+                                 additional_notes: csvReader.GetField(16)
                     ));
             }
 
@@ -133,7 +139,7 @@ namespace Quandl.NET
 
         public static async Task<IEnumerable<StockIndexConstituent>> GetSP500IndexConstituentsAsync()
         {
-            var responseString = 
+            var responseString =
                 await "https://s3.amazonaws.com/static.quandl.com/tickers/SP500.csv"
                 .GetAsync()
                 .ReceiveString()
@@ -144,7 +150,7 @@ namespace Quandl.NET
 
         public static async Task<IEnumerable<StockIndexConstituent>> GetDowJonesIndustrialAverageConstituentsAsync()
         {
-            var responseString = 
+            var responseString =
                 await "https://s3.amazonaws.com/static.quandl.com/tickers/dowjonesA.csv"
                 .GetAsync()
                 .ReceiveString()
@@ -181,7 +187,6 @@ namespace Quandl.NET
                 .ConfigureAwait(false);
 
             return ParseIndexConstituentsResponse(responseString);
-
         }
 
         public static async Task<IEnumerable<StockIndexConstituent>> GetFTSE100IndexConstituentsAsync()

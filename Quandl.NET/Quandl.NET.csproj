@@ -4,13 +4,14 @@
     <Description>A .NET wrapper built on Quandl v3 REST API, based on .NET standard 1.4</Description>
     <Copyright>Copyright (c) 2016-* SalmonThinLion</Copyright>
     <AssemblyTitle>Quandl.NET</AssemblyTitle>
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.1.1</VersionPrefix>
     <Authors>SalmonThinLion</Authors>
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>Quandl.NET</AssemblyName>
     <PackageId>Quandl.NET</PackageId>
     <PackageTags>Quandl;Finance;Economic;Stock;Futures;Commodities;API</PackageTags>
     <PackageReleaseNotes>
+[27/05/2017] Enums has been moved to Quandl.NET namespace from Quandl.NET.Model.Enum namespace. UsefulDataAndLists is renamed as Quandl for easier access
 [26/05/2017] Added time-series api and tables api. Makes DatabaseApi, DatatableApi, DatasetApi obsolete.
 [29/12/2016] Throws proper exception message when error occurs
 [21/11/2016] Added UsefulDataAndLists for querying index constituents/futures/commodities, etc.
@@ -50,6 +51,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>

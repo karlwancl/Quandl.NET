@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Quandl.NET.Model.Enum
+namespace Quandl.NET
 {
     public enum DownloadType
     {

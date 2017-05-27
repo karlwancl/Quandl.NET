@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.4": {},
     ".NETStandard,Version=v1.4/": {
-      "quandl.net/1.0.8": {
+      "quandl.net/1.1.1": {
         "dependencies": {
           "CsvHelper": "2.16.3",
           "Flurl": "2.2.1",
@@ -757,7 +757,7 @@
     }
   },
   "libraries": {
-    "quandl.net/1.0.8": {
+    "quandl.net/1.1.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

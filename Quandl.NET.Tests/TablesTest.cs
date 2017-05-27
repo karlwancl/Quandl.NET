@@ -1,8 +1,6 @@
 ﻿using System;
-using Xunit;
-using System.Collections.Generic;
 using System.Linq;
-using Quandl.NET.Helper;
+using Xunit;
 
 namespace Quandl.NET.Tests
 {
@@ -22,16 +20,19 @@ namespace Quandl.NET.Tests
         public void GetTest()
         {
             var client = new QuandlClient(My.ApiKey);
-            var data = client.Tables.GetAsync("ETFG/FUND", "ticker=SPY,IWM,GLD&date<2014-01-07", "ticker,date,shares_outstanding").Result;
-            Assert.Equal("ticker", data.Datatable.Columns.First().Name);
+            var result = client.Tables.GetAsync("ETFG/FUND", "ticker=SPY,IWM,GLD&date<2014-01-07", "ticker,date,shares_outstanding").Result;
+            Console.WriteLine(string.Join(", ", result.Datatable.Columns.Select(c => c.Name)));
+            Console.WriteLine(string.Join(", ", result.Datatable.Data.First()));
+            Assert.Equal("ticker", result.Datatable.Columns.First().Name);
         }
 
         [Fact]
         public void GetMetadataTest()
         {
             var client = new QuandlClient(My.ApiKey);
-            var data = client.Tables.GetMetadataAsync("AR/MWCS").Result;
-            Assert.Equal("MarketWorks Futures Settlement CME", data.Datatable.Name);
+            var result = client.Tables.GetMetadataAsync("AR/MWCS").Result;
+            Console.WriteLine($"Name: {result.Datatable.Name}, Filters: {string.Join(", ", result.Datatable.Filters)}, Premium: {result.Datatable.Premium}");
+            Assert.Equal("MarketWorks Futures Settlement CME", result.Datatable.Name);
         }
 
         [Fact]
@@ -45,10 +46,21 @@ namespace Quandl.NET.Tests
         }
 
         [Fact]
-        public void UsefulDataAndListsTest()
+        public void QuandlTest()
         {
-            var result = UsefulDataAndLists.GetSP500IndexConstituentsAsync().Result;
+            //var result = Quandl.GetSP500IndexConstituentsAsync().Result;
+            //Console.WriteLine(string.Join(", ", result.Take(10).Select((c => c.Ticker))));
+
+            //var result = Quandl.GetFuturesMetadataAsync().Result;
+            //Console.WriteLine(string.Join(", ", result.Take(10).Select(md => md.Symbol)));
             Assert.True(true);
-        }
+
+            //var result = Quandl.GetCommoditiesAsync().Result;
+            //Console.WriteLine(string.Join("; ", result.Select(r => $"Name: {r.Name}, Sector: {r.Sector}").Take(3)));
+
+            var result = Quandl.GetISOCurrencyCodesAsync().Result;
+            Console.WriteLine(string.Join("; ", result.Select(c => $"Code: {c.AlphabeticCode}, Country: {c.Country}, Currency: {c.Currency}").Take(3)));
+
+		}
     }
 }

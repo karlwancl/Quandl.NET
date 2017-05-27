@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quandl.NET.Model
 {
     public class FuturesMetadata
     {
-        public FuturesMetadata(string symbol, string exchange, string quandl_code, string name, string session_type, 
-            bool active, decimal terminal_point_value, long full_point_value, string currency, string contract_size)
+        public FuturesMetadata(string symbol, string exchange, string quandl_code, string name, string session_type,
+            bool active, decimal? terminal_point_value, long? full_point_value, string currency, string contract_size, string units, decimal? minimum_tick_value,
+                               decimal? tick_value, string delivery_months, DateTime? start_date, string trading_times, string additional_notes)
         {
             Symbol = symbol;
             Exchange = exchange;
@@ -21,6 +18,13 @@ namespace Quandl.NET.Model
             FullPointValue = full_point_value;
             Currency = currency;
             ContractSize = contract_size;
+            Units = units;
+            MinimumTickValue = minimum_tick_value;
+            TickValue = tick_value;
+            DeliveryMonths = delivery_months;
+            StartDate = start_date;
+            TradingTimes = trading_times;
+            AdditionalNotes = additional_notes;
         }
 
         public string Symbol { get; private set; }
@@ -35,12 +39,26 @@ namespace Quandl.NET.Model
 
         public bool Active { get; private set; }
 
-        public decimal TerminalPointValue { get; private set; }
+        public decimal? TerminalPointValue { get; private set; }
 
-        public long FullPointValue { get; private set; }
+        public long? FullPointValue { get; private set; }
 
         public string Currency { get; private set; }
 
         public string ContractSize { get; private set; }
-    }
+
+        public string Units { get; private set;}
+
+		public decimal? MinimumTickValue { get; private set; }
+
+		public decimal? TickValue { get; private set; }
+
+		public string DeliveryMonths { get; private set; }
+
+		public DateTime? StartDate { get; private set; }
+
+		public string TradingTimes { get; private set; }
+
+		public string AdditionalNotes { get; private set; }
+	}
 }

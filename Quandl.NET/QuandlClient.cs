@@ -13,13 +13,13 @@ namespace Quandl.NET
             Tables = new Tables(apiKey);
         }
 
-		[Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
+        [Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
         public DatabaseApi Database { get; private set; }
 
-		[Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
+        [Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
         public DatatableApi Datatable { get; private set; }
 
-		[Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
+        [Obsolete("Quandl has recently reorganized the api, please use Timeseries or Tables class for api call, this class will be removed in later patch")]
         public DatasetApi Dataset { get; private set; }
 
         public Timeseries Timeseries { get; private set; }

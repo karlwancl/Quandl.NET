@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
-namespace Quandl.NET.Model.Enum
+namespace Quandl.NET
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Order

@@ -1,5 +1,4 @@
-﻿using Quandl.NET.Model.Enum;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Quandl.NET.Model

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quandl.NET.Model
+﻿namespace Quandl.NET.Model
 {
     public class StockIndexConstituent
     {
-        
         public StockIndexConstituent(string ticker, string name, string free_code, string premium_code)
         {
             Ticker = ticker;

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Quandl.NET.Helper
 {
-    static class Filter
+    internal static class Filter
     {
         public static Dictionary<string, string> Parse(string filter)
             => filter.Replace("<=", ".lte=")

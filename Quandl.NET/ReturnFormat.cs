@@ -1,15 +1,16 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Quandl.NET
 {
     public enum ReturnFormat
     {
-        [EnumMember(Value= "json")]
+        [EnumMember(Value = "json")]
         Json,
-		[EnumMember(Value = "xml")]
-		Xml,
-		[EnumMember(Value = "csv")]
-		Csv
+
+        [EnumMember(Value = "xml")]
+        Xml,
+
+        [EnumMember(Value = "csv")]
+        Csv
     }
 }
