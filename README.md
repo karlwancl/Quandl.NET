@@ -48,13 +48,12 @@ You can find the package through Nuget
 	Console.WriteLine(string.Join("; ", result.DatasetData.Data.First()));
 
 ##### Get filtered time-series data [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-filtered-time-series-data)
-	// The call
-	var result = await client.Timeseries.GetDataAsync("WIKI", "FB", 
-													columnIndex: 4, 
-													startDate: new DateTime(2014, 1, 1), 
-													endDate: new DateTime(2014, 12, 31), 
-													collapse: Collapse.Monthly, 
-													transform: Transform.Rdiff);
+	var data = await client.Timeseries.GetDataAsync("WIKI", "FB", 
+		columnIndex: 4, 
+		startDate: new DateTime(2014, 1, 1), 
+		endDate: new DateTime(2014, 12, 31), 
+		collapse: Model.Enum.Collapse.Monthly, 
+		transform: Model.Enum.Transform.Rdiff);
 
 	// Output should be similar to Get time-series data api
 
@@ -66,13 +65,12 @@ You can find the package through Nuget
 	Console.WriteLine($"DatabaseCode: {result.Dataset.DatabaseCode}; DatasetCode: {result.Dataset.DatasetCode}; Name: {result.Dataset.Name}; Premium: {result.Dataset.Premium}");
 
 ##### Get time-series data and metadata [Reference](https://docs.quandl.com/docs/in-depth-usage#section-get-time-series-data-and-metadata)
-	// The call
-	var result = await client.Timeseries.GetDataAndMetadataAsync("WIKI", "FB",
-											columnIndex: 4,
-											startDate: new DateTime(2014, 1, 1),
-											endDate: new DateTime(2014, 12, 31),
-											collapse: Collapse.Monthly,
-											transform: Transform.Rdiff);
+	var data = await client.Timeseries.GetDataAndMetadataAsync("WIKI", "FB",
+		columnIndex: 4,
+		startDate: new DateTime(2014, 1, 1),
+		endDate: new DateTime(2014, 12, 31),
+		collapse: Model.Enum.Collapse.Monthly,
+		transform: Model.Enum.Transform.Rdiff);
 
 	// Output should be similar to Get time-series data api
 
