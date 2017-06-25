@@ -1,4 +1,8 @@
 # Quandl.NET
+[![Build status](https://ci.appveyor.com/api/projects/status/pouynyxg4uafdewa?svg=true)](https://ci.appveyor.com/project/lppkarl/quandl-net)
+[![NuGet](https://img.shields.io/nuget/v/Quandl.NET.svg)](https://www.nuget.org/packages/Quandl.NET/)
+[![license](https://img.shields.io/github/license/lppkarl/Quandl.NET.svg)](https://github.com/lppkarl/Quandl.NET/blob/master/LICENSE)
+
 Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 1.4, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
 
 ### Features
@@ -165,10 +169,5 @@ You can find the package through Nuget
 ### Powered by
 * [Flurl](https://github.com/tmenier/Flurl) ([@tmenier](https://github.com/tmenier)) - A simple & elegant fluent-style REST api library 
 
-### License
-This library is under [MIT License](https://github.com/salmonthinlion/Quandl.NET/blob/master/LICENSE)
-
 ### Reference
 [Quandl API Reference](https://www.quandl.com/docs/api?csv#introduction)
-	
-	

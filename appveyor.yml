@@ -1,0 +1,16 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+before_build:
+- cmd: dotnet restore
+build:
+  verbosity: minimal
+after_build:
+- cmd: dotnet pack
+test_script:
+- cmd: dotnet test .\Quandl.NET.Tests\Quandl.NET.Tests.csproj
+artifacts:
+- path: Quandl.NET/bin/Debug/Quandl.NET.*.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: acSSgAlUNA/OCqX0TVICWNqcNcYgBJi01ynOZwXGhTNGVNtRQiv4FIJFsoYnuSgB
