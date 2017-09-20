@@ -4,12 +4,14 @@
 [![NuGet](https://img.shields.io/nuget/dt/Quandl.NET.svg)](https://www.nuget.org/packages/Quandl.NET/)
 [![license](https://img.shields.io/github/license/lppkarl/Quandl.NET.svg)](https://github.com/lppkarl/Quandl.NET/blob/master/LICENSE)
 
-Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 1.4, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
+Quandl is a marketplace for financial and economic data. All data on Quandl can be accessed via their REST API. This library, as a .NET wrapper, built on Quandl v3 REST API. It is based on .NET standard 2.0, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
 
 ### Features
 * Allows access to financial and economic data through Quandl v3 API
 
 ### Release Notes
+[20/9/2017] Added .NET Standard 2.0 support
+
 [27/05/2017] 
 * All enums have been moved to Quandl.NET namespace from Quandl.NET.Model.Enum namespace, inputting "Model.Enum." prefix is no longer needed.
 * UsefulDataAndLists has been renamed as Quandl for easier access.
@@ -21,7 +23,7 @@ Quandl is a marketplace for financial and economic data. All data on Quandl can 
 You can easily migrate your code following the message given by intellisense, some of the api call such as GetListAsync() will not be supported as there is no equivalent api written in the Quandl's api doc.
 
 ### Supported Platforms
-* .NET Core 1.0
+* .NET Core 2.0
 * .NET Framework 4.6.1 or above
 * Xamarin.iOS
 * Xamarin.Android
