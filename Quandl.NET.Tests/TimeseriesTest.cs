@@ -7,7 +7,7 @@ namespace Quandl.NET.Tests
     public class TimeseriesTest
     {
         // Test account api key
-        const string ApiKey = "Sys3z7hfYmzjiXPxwfQJ";
+        const string ApiKey = "kQniaxZEnuxUTN2QGFgF";
 
         [Fact]
         public void GetDataTest()

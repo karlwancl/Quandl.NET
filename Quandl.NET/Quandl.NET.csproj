@@ -10,7 +10,7 @@
     <AssemblyName>Quandl.NET</AssemblyName>
     <PackageId>Quandl.NET</PackageId>
     <PackageTags>Quandl;Finance;Economic;Stock;Futures;Commodities;API</PackageTags>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>[16/9/2018] Upgrade CsvHelper from 2.16.3 to 7.1.1
 [20/9/2017] Added .NET Standard 2.0 support
 [27/05/2017] Enums has been moved to Quandl.NET namespace from Quandl.NET.Model.Enum namespace. UsefulDataAndLists is renamed as Quandl for easier access
 [26/05/2017] Added time-series api and tables api. Makes DatabaseApi, DatatableApi, DatasetApi obsolete.
@@ -30,6 +30,7 @@
     <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="2.16.3">
+    <PackageReference Include="CsvHelper" Version="7.1.1">
     </PackageReference>
     <PackageReference Include="Flurl" Version="2.2.1">
     </PackageReference>
@@ -46,7 +47,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1">
     </PackageReference>
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0">
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1">
     </PackageReference>
     <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0">
     </PackageReference>

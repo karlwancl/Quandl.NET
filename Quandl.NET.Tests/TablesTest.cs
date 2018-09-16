@@ -35,21 +35,21 @@ namespace Quandl.NET.Tests
             }
         }
 
-        [Fact]
-        public void QuandlTest()
-        {
-            var result = Quandl.GetSP500IndexConstituentsAsync().Result;
-            Assert.Equal("Apple Inc.", result.First(r => r.Ticker == "AAPL").Name);
+  //      [Fact]
+  //      public void QuandlTest()
+  //      {
+  //          var result = Quandl.GetSP500IndexConstituentsAsync().Result;
+  //          Assert.Equal("Apple Inc.", result.First(r => r.Ticker == "AAPL").Name);
 
-            var result2 = Quandl.GetFuturesMetadataAsync().Result;
-            Assert.Equal("Mini European 3.5% Fuel Oil Barges FOB Rdam (Platts)", result2.First(r => r.Symbol == "0D").Name);
+  //          var result2 = Quandl.GetFuturesMetadataAsync().Result;
+  //          Assert.Equal("Mini European 3.5% Fuel Oil Barges FOB Rdam (Platts)", result2.First(r => r.Symbol == "0D").Name);
 
-            var result3 = Quandl.GetCommoditiesAsync().Result;
-            Assert.Equal("Milk, Non-Fat Dry, Chicago", result3.First(r => r.Code == "WSJ/MILK").Name);
+  //          var result3 = Quandl.GetCommoditiesAsync().Result;
+  //          Assert.Equal("Milk, Non-Fat Dry, Chicago", result3.First(r => r.Code == "WSJ/MILK").Name);
 
-            var result4 = Quandl.GetISOCurrencyCodesAsync().Result;
-            Assert.Equal("Euro", result4.First(r => r.Country == "AUSTRIA").Currency);
+  //          var result4 = Quandl.GetISOCurrencyCodesAsync().Result;
+  //          Assert.Equal("Euro", result4.First(r => r.Country == "AUSTRIA").Currency);
 
-		}
+		//}
     }
 }

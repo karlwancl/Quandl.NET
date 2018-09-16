@@ -138,7 +138,7 @@ You can find the package through Nuget
 		stream.CopyTo(fs);
 	}
 
-#### Useful Data And Lists for Quandl
+#### Useful Data And Lists for Quandl (No longer available)
 
 ##### Get List Of Index Constituents And The Corresponding Quandl Code
 	// The call returns a list of S&P500 index constituents.
