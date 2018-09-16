@@ -41,9 +41,9 @@
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="7.1.1">
     </PackageReference>
-    <PackageReference Include="Flurl" Version="2.2.1">
+    <PackageReference Include="Flurl" Version="2.8.0">
     </PackageReference>
-    <PackageReference Include="Flurl.Http" Version="1.1.1">
+    <PackageReference Include="Flurl.Http" Version="2.4.0">
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1">
     </PackageReference>
