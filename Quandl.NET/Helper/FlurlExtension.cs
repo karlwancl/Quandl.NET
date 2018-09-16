@@ -3,14 +3,15 @@ using Flurl.Http;
 using Newtonsoft.Json;
 using Quandl.NET.Exception;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Quandl.NET.Helper
 {
     internal static class FlurlExtension
     {
-        public static System.Exception ToQuandlException(this FlurlHttpException ex)
+        public static async Task<System.Exception> ToQuandlExceptionAsync(this FlurlHttpException ex)
         {
-            var str = ex.GetResponseString();
+            var str = await ex.GetResponseStringAsync();
             if (!string.IsNullOrWhiteSpace(str) && str.Contains("quandl_error"))
             {
                 dynamic content = JsonConvert.DeserializeObject(str);

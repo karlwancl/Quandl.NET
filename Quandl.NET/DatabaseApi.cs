@@ -39,7 +39,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
 
@@ -63,7 +63,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
 
@@ -87,7 +87,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
 
@@ -117,7 +117,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
 
@@ -147,7 +147,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
 
@@ -171,7 +171,7 @@ namespace Quandl.NET
             }
             catch (FlurlHttpException ex)
             {
-                throw ex.ToQuandlException();
+                throw await ex.ToQuandlExceptionAsync();
             }
         }
     }
